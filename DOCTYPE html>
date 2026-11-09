@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>كارفور سيت سمار</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f4f7f3;color:#1e3a29}
+header{background:#fff;padding:12px;display:flex;gap:8px;justify-content:center;position:sticky;top:0;z-index:5;box-shadow:0 1px 4px #0002}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:10px;padding:12px 16px;background:#237a4b;color:#fff;font-size:15px}
+button.light{background:#e2eee6;color:#1e3a29}
+button.red{background:#c0392b}
+.hero{text-align:center;padding:20px 12px 4px}
+.hero h1{margin:0;font-size:26px}
+main{padding:12px;max-width:900px;margin:auto}
+input,select,textarea{width:100%;padding:13px;margin:6px 0;border:1px solid #ccc;border-radius:10px;font-family:inherit;font-size:15px;background:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 1px 5px #0001;display:flex;flex-direction:column;gap:6px}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#eee}
+.ph{width:100%;aspect-ratio:1;border-radius:12px;background:#e9efe9;display:flex;align-items:center;justify-content:center;font-size:40px}
+.card h3{margin:4px 0;font-size:16px}
+.price{color:#237a4b;font-weight:bold}
+.box{background:#fff;border-radius:16px;padding:14px;margin-bottom:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #eee}
+.row .t{flex:1}
+.qty button{padding:4px 12px}
+.hide{display:none}
+.mini{display:flex;gap:6px}
+.mini button{padding:8px 12px;font-size:13px}
+#prev{width:120px;height:120px;object-fit:cover;border-radius:12px;display:none;margin:6px 0}
+footer{text-align:center;padding:20px;color:#557}
+</style>
+</head>
+<body>
+<header>
+<button onclick="show('shop')">المنتجات</button>
+<button onclick="show('cartv')">🛒 السلة (<span id="cc">0</span>)</button>
+<button class="light" onclick="openAdmin()">الإدارة</button>
+</header>
+<div class="hero"><h1>🌳 كارفور سيت سمار</h1><p>متجر منتجات DXN — اطلبوا بسهولة عبر واتساب</p></div>
+<main>
+<section id="shop">
+<input id="q" placeholder="🔎 اكتب اسم المنتج..." oninput="render()">
+<select id="role" onchange="render();renderCart()"><option value="c">أنا زبون غير عضو</option><option value="m">أنا عضو DXN</option></select>
+<h2>🌿 منتجاتنا</h2>
+<div class="grid" id="list"></div>
+</section>
+
+<section id="cartv" class="hide">
+<h2>🛒 سلة المشتريات</h2>
+<div class="box" id="cart"></div>
+<button onclick="sendOrder()" style="width:100%">إرسال الطلب عبر واتساب</button>
+</section>
+
+<section id="admin" class="hide">
+<h2>⚙️ إدارة المتجر</h2>
+<div class="box">
+<h3 id="ftitle">إضافة منتج جديد</h3>
+<input id="n" placeholder="اسم المنتج">
+<input type="file" id="f" accept="image/*" onchange="pick(this)">
+<img id="prev">
+<input id="pc" type="number" inputmode="numeric" placeholder="سعر الزبون MRU">
+<input id="pm" type="number" inputmode="numeric" placeholder="سعر العضو MRU">
+<input id="st" type="number" inputmode="numeric" placeholder="الكمية المتوفرة">
+<button onclick="save()">حفظ المنتج</button>
+<button class="light" onclick="resetForm()">إلغاء</button>
+</div>
+<div class="box">
+<h3>المنتجات الحالية</h3>
+<div id="alist"></div>
+</div>
+<div class="box">
+<h3>نشر المنتجات للجميع</h3>
+<p style="font-size:14px">المنتجات التي تضيفها تُحفظ في هاتفك. لتظهر لكل الزبائن: اضغط الزر، ثم ارفع الملف <b>products.json</b> على GitHub (Add file ← Upload files).</p>
+<button onclick="exportJson()">تنزيل products.json</button>
+</div>
+</section>
+</main>
+<footer>كارفور سيت سمار 🌳<br>للطلب والاستفسار عبر واتساب</footer>
+
+<script>
+const WA="22226141711", PIN="1234";
+const DEF=[
+{id:1,name:"معجون الأسنان",img:"",pc:550,pm:380,st:100},
+{id:2,name:"سبرولينا 500غ",img:"",pc:3650,pm:3650,st:80}
+];
+let P=[],cart={},editId=null,img="",ok=false;
+const $=id=>document.getElementById(id);
+
+async function init(){
+ try{const s=localStorage.getItem("prods");if(s)P=JSON.parse(s)}catch(e){}
+ if(!P.length){
+  try{const r=await fetch("products.json",{cache:"no-store"});if(r.ok)P=await r.json()}catch(e){}
+ }
+ if(!P.length)P=DEF;
+ render();renderCart();
+}
+function persist(){try{localStorage.setItem("prods",JSON.stringify(P))}catch(e){alert("الذاكرة ممتلئة، استخدم صوراً أقل")}}
+function show(id){["shop","cartv","admin"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
+function price(p){return $("role").value==="m"?p.pm:p.pc}
+function render(){
+ const q=$("q").value.trim();
+ $("list").innerHTML=P.filter(p=>p.name.includes(q)).map(p=>`
+ <div class="card">${p.img?`<img src="${p.img}" alt="">`:`<div class="ph">🌿</div>`}
+ <h3>${p.name}</h3><div class="price">MRU ${price(p)}</div>
+ <div>المتوفر: ${p.st}</div>
+ <button onclick="add(${p.id})" ${p.st<1?"disabled":""}>أضف إلى السلة</button></div>`).join("")||"<p>لا توجد منتجات</p>";
+}
+function add(id){const p=P.find(x=>x.id===id);if((cart[id]||0)<p.st){cart[id]=(cart[id]||0)+1;renderCart()}}
+function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
+function renderCart(){
+ let tot=0,n=0,h="";
+ for(const id in cart){const p=P.find(x=>x.id==id);if(!p){delete cart[id];continue}
+  const s=price(p)*cart[id];tot+=s;n+=cart[id];
+  h+=`<div class="row"><div class="t">${p.name}<br><small>MRU ${s}</small></div><div class="qty mini"><button onclick="chg(${id},1)">+</button><b>${cart[id]}</b><button onclick="chg(${id},-1)">−</button></div></div>`}
+ $("cc").textContent=n;
+ $("cart").innerHTML=(h||"السلة فارغة")+`<h3>الإجمالي: ${tot} MRU</h3>`;
+}
+function sendOrder(){
+ if(!Object.keys(cart).length)return alert("السلة فارغة");
+ let m="طلب جديد من متجر كارفور سيت سمار 🌳%0A"+($("role").value==="m"?"(عضو DXN)":"(زبون)")+"%0A%0A",t=0;
+ for(const id in cart){const p=P.find(x=>x.id==id),s=price(p)*cart[id];t+=s;m+=`• ${p.name} × ${cart[id]} = ${s} MRU%0A`}
+ m+=`%0Aالإجمالي: ${t} MRU`;
+ window.open(`https://wa.me/${WA}?text=${m}`,"_blank");
+}
+/* Admin */
+function openAdmin(){
+ if(!ok){if(prompt("أدخل رمز الإدارة")!==PIN)return alert("الرمز خاطئ");ok=true}
+ show("admin");renderAdmin();
+}
+function renderAdmin(){
+ $("alist").innerHTML=P.map(p=>`<div class="row">${p.img?`<img src="${p.img}" width="50" height="50" style="border-radius:8px;object-fit:cover">`:"🌿"}
+ <div class="t">${p.name}<br><small>الزبون ${p.pc} | العضو ${p.pm} | الكمية ${p.st}</small></div>
+ <div class="mini"><button class="light" onclick="edit(${p.id})">تعديل</button><button class="red" onclick="del(${p.id})">حذف</button></div></div>`).join("");
+}
+function pick(el){
+ const f=el.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=e=>{const i=new Image();i.onload=()=>{
+  const m=600,s=Math.min(1,m/Math.max(i.width,i.height)),c=document.createElement("canvas");
+  c.width=i.width*s;c.height=i.height*s;c.getContext("2d").drawImage(i,0,0,c.width,c.height);
+  img=c.toDataURL("image/jpeg",.7);$("prev").src=img;$("prev").style.display="block"};i.src=e.target.result};
+ r.readAsDataURL(f);
+}
+function save(){
+ const name=$("n").value.trim();if(!name)return alert("اكتب اسم المنتج");
+ const o={name,img,pc:+$("pc").value||0,pm:+$("pm").value||0,st:+$("st").value||0};
+ if(editId){const p=P.find(x=>x.id===editId);Object.assign(p,o)}
+ else P.push({id:Date.now(),...o});
+ persist();resetForm();renderAdmin();render();
+}
+function edit(id){
+ const p=P.find(x=>x.id===id);editId=id;img=p.img;
+ $("n").value=p.name;$("pc").value=p.pc;$("pm").value=p.pm;$("st").value=p.st;
+ $("prev").src=img;$("prev").style.display=img?"block":"none";
+ $("ftitle").textContent="تعديل المنتج (اترك الصورة كما هي أو اختر غيرها)";scrollTo(0,0);
+}
+function del(id){if(confirm("حذف المنتج؟")){P=P.filter(x=>x.id!==id);delete cart[id];persist();renderAdmin();render();renderCart()}}
+function resetForm(){editId=null;img="";["n","pc","pm","st","f"].forEach(x=>$(x).value="");$("prev").style.display="none";$("ftitle").textContent="إضافة منتج جديد"}
+function exportJson(){
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob([JSON.stringify(P)],{type:"application/json"}));
+ a.download="products.json";a.click();
+}
+init();
+</script>
+</body>
+</html>
