@@ -16,7 +16,7 @@
                     },
                     colors: {
                         app: {
-                            green: '#0b764c', 
+                            green: '#0b764c',
                             light: '#f4f7f6',
                             yellow: '#f59e0b'
                         }
@@ -29,12 +29,20 @@
         body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; }
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        /* أنيميشن بسيط عند الإضافة للسلة */
+        .pop { animation: pop 0.3s ease; }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased pb-20">
 
     <div class="max-w-md mx-auto bg-white min-h-screen relative shadow-2xl overflow-hidden">
 
+        <!-- Header -->
         <header class="p-4 flex justify-between items-center bg-white sticky top-0 z-40">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-app-green text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">
@@ -49,24 +57,23 @@
             </div>
             <div class="bg-gray-100 p-2.5 rounded-full relative cursor-pointer">
                 <i class="far fa-bell text-gray-600"></i>
-                <span class="absolute top-1 right-1 bg-red-500 w-2.5 h-2.5 rounded-full border-2 border-white"></span>
             </div>
         </header>
 
+        <!-- Search Bar -->
         <div class="px-4 pb-3 bg-white">
-            <div class="bg-gray-100 rounded-xl flex items-center p-3 border border-gray-200 focus-within:border-app-green focus-within:bg-white transition-all">
+            <div class="bg-gray-100 rounded-xl flex items-center p-3 border border-gray-200">
                 <i class="fas fa-search text-gray-400 ml-3"></i>
                 <input type="text" placeholder="ابحث عن منتجات صحية..." class="bg-transparent w-full outline-none text-sm placeholder-gray-400">
-                <i class="fas fa-sliders-h text-app-green mr-3"></i>
             </div>
         </div>
 
+        <!-- Promotional Banner -->
         <div class="px-4 py-2 bg-white">
             <div class="bg-app-green rounded-2xl p-5 text-white flex justify-between items-center relative overflow-hidden shadow-md">
                 <div class="z-10 w-2/3">
                     <h3 class="font-extrabold text-lg mb-1 leading-tight">احصل على توصيل مجاني</h3>
                     <p class="text-xs text-green-100 opacity-90 mb-3">عند تسوقك بـ 2,000 أوقية أو أكثر</p>
-                    <button class="bg-app-yellow text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">تصفح الآن</button>
                 </div>
                 <div class="absolute -left-4 -bottom-4 opacity-50 text-7xl z-0">
                     <i class="fas fa-shopping-basket"></i>
@@ -74,112 +81,131 @@
             </div>
         </div>
 
-        <div class="bg-white pt-2 pb-4">
-            <div class="flex gap-2 overflow-x-auto px-4 hide-scroll">
-                <button class="bg-app-green text-white px-5 py-1.5 rounded-full text-sm font-bold shrink-0 shadow-sm border border-app-green">الكل</button>
-                <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-full text-sm font-medium shrink-0 hover:bg-gray-50 transition">مكملات غذائية</button>
-                <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-full text-sm font-medium shrink-0 hover:bg-gray-50 transition">مشروبات وعصائر</button>
-                <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-full text-sm font-medium shrink-0 hover:bg-gray-50 transition">عناية شخصية</button>
-            </div>
-        </div>
-
+        <!-- Products Grid -->
         <div class="p-4 bg-app-light grid grid-cols-2 gap-3 min-h-screen">
             
+            <!-- Product 1 -->
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
-                    <i class="far fa-heart"></i>
-                </button>
-                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Spirulina" alt="سبيرولينا" class="max-h-full object-contain mix-blend-multiply">
+                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                    <!-- رابط صورة بديلة للسبيرولينا -->
+                    <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=300&q=80" alt="سبيرولينا" class="w-full h-full object-cover rounded-xl">
                 </div>
                 <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">طحالب الاسبيرولينا</h4>
                 <p class="text-[11px] text-gray-500 mb-3">120 حبة</p>
                 <div class="mt-auto">
                     <p class="font-extrabold text-app-green text-base mb-2">6,500 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <a href="https://wa.me/22226141711?text=أريد طلب طحالب الاسبيرولينا" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                    <button onclick="addToCart('طحالب الاسبيرولينا', 6500)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
                         إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
 
+            <!-- Product 2 -->
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
-                    <i class="far fa-heart"></i>
-                </button>
-                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Reishi" alt="فطر الريشي" class="max-h-full object-contain mix-blend-multiply">
+                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                    <!-- رابط صورة بديلة للريشي -->
+                    <img src="https://images.unsplash.com/photo-1606913084603-3e7702b01627?auto=format&fit=crop&w=300&q=80" alt="فطر الريشي" class="w-full h-full object-cover rounded-xl">
                 </div>
                 <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">فطر الريشي (جانوديرما)</h4>
                 <p class="text-[11px] text-gray-500 mb-3">ملك الأعشاب</p>
                 <div class="mt-auto">
                     <p class="font-extrabold text-app-green text-base mb-2">8,200 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <a href="https://wa.me/22226141711?text=أريد طلب فطر الريشي" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                    <button onclick="addToCart('فطر الريشي (جانوديرما)', 8200)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
                         إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
 
+            <!-- Product 3 -->
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <div class="absolute top-2 right-2 bg-app-yellow text-white text-[10px] font-bold px-2 py-0.5 rounded">خصم</div>
-                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
-                    <i class="far fa-heart"></i>
-                </button>
-                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Cocozhi" alt="كوكوزي" class="max-h-full object-contain mix-blend-multiply">
+                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                    <!-- رابط صورة بديلة للكوكوزي -->
+                    <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=300&q=80" alt="كوكوزي" class="w-full h-full object-cover rounded-xl">
                 </div>
                 <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">مشروب كوكوزي</h4>
                 <p class="text-[11px] text-gray-500 mb-3">مشروب شوكولاتة صحي</p>
                 <div class="mt-auto">
-                    <div class="flex items-center gap-2 mb-2">
-                        <p class="font-extrabold text-app-green text-base">5,400</p>
-                        <p class="text-[10px] text-gray-400 line-through">6,000</p>
-                    </div>
-                    <a href="https://wa.me/22226141711?text=أريد طلب مشروب كوكوزي" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                    <p class="font-extrabold text-app-green text-base mb-2">5,400 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
+                    <button onclick="addToCart('مشروب كوكوزي', 5400)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
                         إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
 
+            <!-- Product 4 -->
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
-                    <i class="far fa-heart"></i>
-                </button>
-                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
-                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Coffee" alt="قهوة لينجزي" class="max-h-full object-contain mix-blend-multiply">
+                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                    <!-- رابط صورة بديلة للقهوة -->
+                    <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" alt="قهوة لينجزي" class="w-full h-full object-cover rounded-xl">
                 </div>
                 <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">قهوة لينجزي السوداء</h4>
                 <p class="text-[11px] text-gray-500 mb-3">بدون سكر</p>
                 <div class="mt-auto">
                     <p class="font-extrabold text-app-green text-base mb-2">4,500 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <a href="https://wa.me/22226141711?text=أريد طلب قهوة لينجزي" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                    <button onclick="addToCart('قهوة لينجزي السوداء', 4500)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
                         إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
             
         </div>
 
+        <!-- Bottom Navigation Bar -->
         <div class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-200 flex justify-around py-3 px-2 z-50 rounded-t-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
-            <a href="#" class="flex flex-col items-center text-app-green">
+            <button class="flex flex-col items-center text-app-green">
                 <i class="fas fa-home text-xl mb-1"></i>
                 <span class="text-[10px] font-bold">الرئيسية</span>
-            </a>
-            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-app-green transition">
-                <i class="fas fa-th-large text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">الأقسام</span>
-            </a>
-            <a href="https://wa.me/22226141711" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-app-green transition relative">
-                <div class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-white">2</div>
-                <i class="fas fa-shopping-cart text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">السلة</span>
-            </a>
-            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-app-green transition">
-                <i class="far fa-user text-xl mb-1"></i>
-                <span class="text-[10px] font-medium">حسابي</span>
-            </a>
+            </button>
+            <button onclick="checkoutWhatsApp()" class="flex flex-col items-center text-gray-400 hover:text-app-green transition relative">
+                <!-- عداد السلة (مخفي برمجياً حتى يتم إضافة منتج) -->
+                <div id="cart-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border border-white">0</div>
+                <i class="fas fa-shopping-cart text-xl mb-1" id="cart-icon"></i>
+                <span class="text-[10px] font-medium text-app-green font-bold">إتمام الطلب</span>
+            </button>
         </div>
 
     </div>
 
+    <!-- برمجة السلة والواتساب -->
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(productName, price) {
+            cart.push({name: productName, price: price});
+            total += price;
+            
+            // تحديث رقم السلة في الأسفل
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = cart.length;
+            badge.classList.remove('hidden');
+            
+            // تأثير حركة بسيط للأيقونة
+            const icon = document.getElementById('cart-icon');
+            icon.classList.remove('pop');
+            void icon.offsetWidth; // Trigger reflow
+            icon.classList.add('pop');
+            
+            // إشعار للمستخدم
+            alert("تمت إضافة: " + productName + " إلى سلتك بنجاح.");
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) {
+                alert("السلة فارغة! الرجاء إضافة منتجات أولاً.");
+                return;
+            }
+            
+            let message = "مرحباً كارفور سيتي سمار، أود إتمام هذا الطلب:\n\n";
+            cart.forEach((item, index) => {
+                message += (index + 1) + ". " + item.name + " (" + item.price + " أوقية)\n";
+            });
+            message += "\nالإجمالي: " + total + " أوقية\n\nالرجاء تأكيد طلبي.";
+            
+            // تحويل الزبون إلى رقم الواتساب الخاص بك
+            let whatsappUrl = "https://wa.me/22226141711?text=" + encodeURIComponent(message);
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
 </body>
 </html>
