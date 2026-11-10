@@ -1,211 +1,193 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كارفور سيتي سمار - متجر</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Tajawal', 'sans-serif'],
-                    },
-                    colors: {
-                        app: {
-                            green: '#0b764c',
-                            light: '#f4f7f6',
-                            yellow: '#f59e0b'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; }
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-        /* أنيميشن بسيط عند الإضافة للسلة */
-        .pop { animation: pop 0.3s ease; }
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>متجر كرفور سيتي سمار</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0b764c;--gd:#064e32;--y:#f59e0b;--bg:#f4f7f6;--card:#fff;--tx:#1f2937;--mu:#6b7280;--bd:#e5e7eb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1714;--card:#18231f;--tx:#e8f0ec;--mu:#9bb0a6;--bd:#2a3a33}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{font-family:'Tajawal',Tahoma,sans-serif;background:var(--bg);color:var(--tx);padding-bottom:90px}
+.app{max-width:480px;margin:auto;min-height:100vh}
+header{background:var(--g);color:#fff;padding:14px 16px 18px;border-radius:0 0 22px 22px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.logo{font-weight:800;font-size:18px}.logo small{display:block;font-size:11px;font-weight:400;opacity:.85}
+.ib{background:rgba(255,255,255,.18);border:0;color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer}
+.search{width:100%;border:0;border-radius:14px;padding:12px 14px;font:inherit;font-size:14px;background:#fff;color:#1f2937}
+.banner{margin:14px 16px;background:linear-gradient(120deg,var(--g),#12a06a);color:#fff;border-radius:20px;padding:18px;display:flex;justify-content:space-between;align-items:center;overflow:hidden}
+.banner h3{font-size:19px;font-weight:800;margin-bottom:4px}.banner p{font-size:12px;opacity:.9}
+.banner span{font-size:54px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:4px 16px 10px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 16px;border-radius:999px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.chip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:6px 16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:10px;display:flex;flex-direction:column;position:relative}
+.img{height:120px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:56px;background-size:cover;background-position:center;margin-bottom:8px}
+.tag{position:absolute;top:16px;right:16px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px}
+.card h4{font-size:14px;margin-bottom:2px}.card .d{font-size:11px;color:var(--mu);margin-bottom:8px;min-height:15px}
+.pr{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.p{font-weight:800;color:var(--g);font-size:15px}.p s{display:block;color:var(--mu);font-size:11px;font-weight:400}
+.add{background:var(--g);color:#fff;border:0;width:36px;height:36px;border-radius:12px;font-size:22px;cursor:pointer}
+.qty{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:12px;padding:2px}
+.qty button{width:30px;height:30px;border:0;border-radius:10px;background:var(--g);color:#fff;font-size:18px;cursor:pointer}
+.qty b{min-width:18px;text-align:center;font-size:14px}
+.empty{grid-column:1/-1;text-align:center;color:var(--mu);padding:40px 0}
+.bar{position:fixed;bottom:0;left:0;right:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));pointer-events:none}
+.cartbtn{pointer-events:auto;max-width:448px;margin:auto;width:100%;display:none;justify-content:space-between;align-items:center;background:var(--gd);color:#fff;border:0;border-radius:16px;padding:14px 18px;font:inherit;font-weight:800;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.3);cursor:pointer}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.panel{background:var(--card);width:100%;max-width:480px;max-height:90vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.panel h2{font-size:18px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.x{background:var(--bg);border:0;width:32px;height:32px;border-radius:50%;font-size:16px;color:var(--tx);cursor:pointer}
+.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}
+.th{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;background-size:cover;background-position:center;flex:none}
+.row .n{flex:1;font-size:13px;font-weight:700}.row .n small{display:block;color:var(--g);font-weight:700}
+input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:12px;padding:11px 12px;font:inherit;font-size:14px;margin-bottom:8px}
+.sum{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}.sum.t{font-weight:800;font-size:17px;color:var(--g)}
+.btn{width:100%;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:800;font-size:15px;color:#fff;background:#16a34a;cursor:pointer;margin-top:8px}
+.btn.s{background:var(--g)}.btn.r{background:#ef4444;padding:8px;font-size:12px;width:auto;margin:0}
+.foot{text-align:center;color:var(--mu);font-size:12px;padding:20px}
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;z-index:99;opacity:0;transition:.3s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
 </head>
-<body class="bg-gray-100 text-gray-800 antialiased pb-20">
+<body>
+<div class="app">
+<header>
+  <div class="top">
+    <div class="logo">🛒 متجر كرفور سيتي سمار<small>توصيل سريع • منتجات أصلية</small></div>
+    <button class="ib" id="adm" aria-label="لوحة التحكم">⚙️</button>
+  </div>
+  <input class="search" id="q" placeholder="🔍 ابحث عن منتج...">
+</header>
 
-    <div class="max-w-md mx-auto bg-white min-h-screen relative shadow-2xl overflow-hidden">
+<div class="banner"><div><h3>توصيل سريع ومجاني</h3><p>للطلبات فوق 2000 أوقية</p></div><span>🛍️</span></div>
+<div class="cats" id="cats"></div>
+<div class="grid" id="grid"></div>
+<div class="foot">للطلب والاستفسار: واتساب +222 26 14 17 11</div>
+</div>
 
-        <!-- Header -->
-        <header class="p-4 flex justify-between items-center bg-white sticky top-0 z-40">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-app-green text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <div>
-                    <p class="text-[11px] text-gray-500 mb-0.5">التوصيل إلى</p>
-                    <p class="text-sm font-bold text-app-green flex items-center gap-1">
-                        كارفور سيتي سمار <i class="fas fa-chevron-down text-[10px]"></i>
-                    </p>
-                </div>
-            </div>
-            <div class="bg-gray-100 p-2.5 rounded-full relative cursor-pointer">
-                <i class="far fa-bell text-gray-600"></i>
-            </div>
-        </header>
+<div class="bar"><button class="cartbtn" id="cb"><span id="cc">🛒 0 منتج</span><span id="ct">0 أوقية</span></button></div>
 
-        <!-- Search Bar -->
-        <div class="px-4 pb-3 bg-white">
-            <div class="bg-gray-100 rounded-xl flex items-center p-3 border border-gray-200">
-                <i class="fas fa-search text-gray-400 ml-3"></i>
-                <input type="text" placeholder="ابحث عن منتجات صحية..." class="bg-transparent w-full outline-none text-sm placeholder-gray-400">
-            </div>
-        </div>
+<!-- Cart -->
+<div class="sheet" id="cart"><div class="panel">
+  <h2>سلة المشتريات <button class="x" data-close>✕</button></h2>
+  <div id="items"></div>
+  <div style="margin-top:12px">
+    <input id="nm" placeholder="الاسم">
+    <input id="ad" placeholder="العنوان / الحي">
+    <div class="sum"><span>المجموع</span><span id="s1"></span></div>
+    <div class="sum"><span>التوصيل</span><span id="s2"></span></div>
+    <div class="sum t"><span>الإجمالي</span><span id="s3"></span></div>
+    <button class="btn" id="send">إرسال الطلب عبر واتساب</button>
+  </div>
+</div></div>
 
-        <!-- Promotional Banner -->
-        <div class="px-4 py-2 bg-white">
-            <div class="bg-app-green rounded-2xl p-5 text-white flex justify-between items-center relative overflow-hidden shadow-md">
-                <div class="z-10 w-2/3">
-                    <h3 class="font-extrabold text-lg mb-1 leading-tight">احصل على توصيل مجاني</h3>
-                    <p class="text-xs text-green-100 opacity-90 mb-3">عند تسوقك بـ 2,000 أوقية أو أكثر</p>
-                </div>
-                <div class="absolute -left-4 -bottom-4 opacity-50 text-7xl z-0">
-                    <i class="fas fa-shopping-basket"></i>
-                </div>
-            </div>
-        </div>
+<!-- Admin -->
+<div class="sheet" id="admin"><div class="panel">
+  <h2>لوحة التحكم <button class="x" data-close>✕</button></h2>
+  <div id="login">
+    <input id="pin" type="password" inputmode="numeric" placeholder="الرمز السري (الافتراضي 1234)">
+    <button class="btn s" id="go">دخول</button>
+  </div>
+  <div id="form" style="display:none">
+    <div id="prev" class="img" style="background-color:var(--bg);border:2px dashed var(--bd);cursor:pointer">📷</div>
+    <input type="file" id="file" accept="image/*" style="display:none">
+    <input id="pn" placeholder="اسم المنتج">
+    <input id="pd" placeholder="وصف قصير (مثال: 120 حبة)">
+    <input id="pp" type="number" inputmode="numeric" placeholder="السعر (أوقية)">
+    <input id="po" type="number" inputmode="numeric" placeholder="السعر قبل الخصم (اختياري)">
+    <input id="pc" list="cl" placeholder="القسم (مثال: مكملات)">
+    <datalist id="cl"></datalist>
+    <button class="btn s" id="save">إضافة المنتج</button>
+    <h2 style="margin-top:18px;font-size:15px">المنتجات الحالية</h2>
+    <div id="list"></div>
+    <input id="newpin" type="password" inputmode="numeric" placeholder="تغيير الرمز السري" style="margin-top:12px">
+    <button class="btn s" id="savepin" style="background:#64748b">حفظ الرمز</button>
+  </div>
+</div></div>
+<div class="toast" id="toast"></div>
 
-        <!-- Products Grid -->
-        <div class="p-4 bg-app-light grid grid-cols-2 gap-3 min-h-screen">
-            
-            <!-- Product 1 -->
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                    <!-- رابط صورة بديلة للسبيرولينا -->
-                    <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=300&q=80" alt="سبيرولينا" class="w-full h-full object-cover rounded-xl">
-                </div>
-                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">طحالب الاسبيرولينا</h4>
-                <p class="text-[11px] text-gray-500 mb-3">120 حبة</p>
-                <div class="mt-auto">
-                    <p class="font-extrabold text-app-green text-base mb-2">6,500 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <button onclick="addToCart('طحالب الاسبيرولينا', 6500)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
-                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                    <!-- رابط صورة بديلة للريشي -->
-                    <img src="https://images.unsplash.com/photo-1606913084603-3e7702b01627?auto=format&fit=crop&w=300&q=80" alt="فطر الريشي" class="w-full h-full object-cover rounded-xl">
-                </div>
-                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">فطر الريشي (جانوديرما)</h4>
-                <p class="text-[11px] text-gray-500 mb-3">ملك الأعشاب</p>
-                <div class="mt-auto">
-                    <p class="font-extrabold text-app-green text-base mb-2">8,200 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <button onclick="addToCart('فطر الريشي (جانوديرما)', 8200)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
-                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                    <!-- رابط صورة بديلة للكوكوزي -->
-                    <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=300&q=80" alt="كوكوزي" class="w-full h-full object-cover rounded-xl">
-                </div>
-                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">مشروب كوكوزي</h4>
-                <p class="text-[11px] text-gray-500 mb-3">مشروب شوكولاتة صحي</p>
-                <div class="mt-auto">
-                    <p class="font-extrabold text-app-green text-base mb-2">5,400 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <button onclick="addToCart('مشروب كوكوزي', 5400)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
-                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
-                <div class="h-28 bg-white rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                    <!-- رابط صورة بديلة للقهوة -->
-                    <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" alt="قهوة لينجزي" class="w-full h-full object-cover rounded-xl">
-                </div>
-                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">قهوة لينجزي السوداء</h4>
-                <p class="text-[11px] text-gray-500 mb-3">بدون سكر</p>
-                <div class="mt-auto">
-                    <p class="font-extrabold text-app-green text-base mb-2">4,500 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
-                    <button onclick="addToCart('قهوة لينجزي السوداء', 4500)" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
-                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
-                    </button>
-                </div>
-            </div>
-            
-        </div>
-
-        <!-- Bottom Navigation Bar -->
-        <div class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-200 flex justify-around py-3 px-2 z-50 rounded-t-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
-            <button class="flex flex-col items-center text-app-green">
-                <i class="fas fa-home text-xl mb-1"></i>
-                <span class="text-[10px] font-bold">الرئيسية</span>
-            </button>
-            <button onclick="checkoutWhatsApp()" class="flex flex-col items-center text-gray-400 hover:text-app-green transition relative">
-                <!-- عداد السلة (مخفي برمجياً حتى يتم إضافة منتج) -->
-                <div id="cart-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border border-white">0</div>
-                <i class="fas fa-shopping-cart text-xl mb-1" id="cart-icon"></i>
-                <span class="text-[10px] font-medium text-app-green font-bold">إتمام الطلب</span>
-            </button>
-        </div>
-
-    </div>
-
-    <!-- برمجة السلة والواتساب -->
-    <script>
-        let cart = [];
-        let total = 0;
-
-        function addToCart(productName, price) {
-            cart.push({name: productName, price: price});
-            total += price;
-            
-            // تحديث رقم السلة في الأسفل
-            const badge = document.getElementById('cart-badge');
-            badge.innerText = cart.length;
-            badge.classList.remove('hidden');
-            
-            // تأثير حركة بسيط للأيقونة
-            const icon = document.getElementById('cart-icon');
-            icon.classList.remove('pop');
-            void icon.offsetWidth; // Trigger reflow
-            icon.classList.add('pop');
-            
-            // إشعار للمستخدم
-            alert("تمت إضافة: " + productName + " إلى سلتك بنجاح.");
-        }
-
-        function checkoutWhatsApp() {
-            if(cart.length === 0) {
-                alert("السلة فارغة! الرجاء إضافة منتجات أولاً.");
-                return;
-            }
-            
-            let message = "مرحباً كارفور سيتي سمار، أود إتمام هذا الطلب:\n\n";
-            cart.forEach((item, index) => {
-                message += (index + 1) + ". " + item.name + " (" + item.price + " أوقية)\n";
-            });
-            message += "\nالإجمالي: " + total + " أوقية\n\nالرجاء تأكيد طلبي.";
-            
-            // تحويل الزبون إلى رقم الواتساب الخاص بك
-            let whatsappUrl = "https://wa.me/22226141711?text=" + encodeURIComponent(message);
-            window.open(whatsappUrl, '_blank');
-        }
-    </script>
+<script>
+const WA="22226141711",FREE=2000,FEE=200;
+const DEF=[
+{id:1,n:"DXN سبيرولينا",d:"طحالب | 120 حبة",p:6500,o:0,c:"مكملات",e:"🌿",bg:"#d1fae5"},
+{id:2,n:"DXN ريشي جانوديرما",d:"فطر الريشي | كبسولات",p:8200,o:0,c:"مكملات",e:"🍄",bg:"#fee2e2"},
+{id:3,n:"DXN لينجزي ريشي (RG)",d:"كبسولات",p:8500,o:0,c:"مكملات",e:"🍄",bg:"#fde7d3"},
+{id:4,n:"DXN كوردي ميس",d:"كورديسيبس | كبسولات",p:9500,o:0,c:"مكملات",e:"💊",bg:"#ede9fe"},
+{id:5,n:"DXN أوزيوم",d:"Ozium | مكمل غذائي",p:7000,o:0,c:"مكملات",e:"🌱",bg:"#dcfce7"},
+{id:6,n:"DXN زيت بذور الريشي",d:"كبسولات",p:7500,o:0,c:"مكملات",e:"💧",bg:"#fef9c3"},
+{id:7,n:"قهوة لينجزي 3 في 1",d:"20 كيس",p:4500,o:0,c:"مشروبات",e:"☕",bg:"#e7e0d8"},
+{id:8,n:"قهوة لينجزي سوداء",d:"بدون سكر | 20 كيس",p:4500,o:0,c:"مشروبات",e:"☕",bg:"#d6d3d1"},
+{id:9,n:"مشروب كوكوزي",d:"شوكولاتة صحية | 20 كيس",p:5400,o:0,c:"مشروبات",e:"🍫",bg:"#fde7d3"},
+{id:10,n:"عصير مورينزي",d:"مورينجا + نوني",p:7800,o:0,c:"مشروبات",e:"🧃",bg:"#ede9fe"},
+{id:11,n:"شاي ريشي DXN",d:"شاي أخضر بالريشي",p:2200,o:0,c:"مشروبات",e:"🍵",bg:"#dcfce7"},
+{id:12,n:"معجون أسنان DXN",d:"بالأعشاب",p:1500,o:0,c:"العناية",e:"🪥",bg:"#dbeafe"},
+{id:13,n:"صابون DXN",d:"بخلاصة الريشي",p:1200,o:0,c:"العناية",e:"🧼",bg:"#fef9c3"},
+{id:14,n:"شامبو DXN",d:"للعناية بالشعر",p:2500,o:0,c:"العناية",e:"🧴",bg:"#e0f2fe"},
+{id:15,n:"جل الاستحمام DXN",d:"بالريشي",p:2500,o:0,c:"العناية",e:"🚿",bg:"#cffafe"}];
+let P=DEF,cart={},cat="الكل",img="",pin="1234",ok=false;
+const $=i=>document.getElementById(i);
+const ls={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("تعذر الحفظ (الصورة كبيرة)")}}};
+P=ls.get("csp",DEF);cart=ls.get("csc",{});pin=ls.get("cspin","1234");
+const fm=n=>n.toLocaleString("en-US")+" أوقية";
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1600)}
+function th(p,cls){return `<div class="${cls}" style="background-color:${p.bg||"#e5e7eb"};${p.img?`background-image:url(${p.img})`:""}">${p.img?"":p.e||"📦"}</div>`}
+function render(){
+  const cs=["الكل",...new Set(P.map(p=>p.c).filter(Boolean))];
+  $("cats").innerHTML=cs.map(c=>`<button class="chip ${c==cat?"on":""}" data-c="${c}">${c}</button>`).join("");
+  $("cl").innerHTML=cs.slice(1).map(c=>`<option value="${c}">`).join("");
+  const q=$("q").value.trim();
+  const L=P.filter(p=>(cat=="الكل"||p.c==cat)&&(!q||p.n.includes(q)||(p.d||"").includes(q)));
+  $("grid").innerHTML=L.length?L.map(p=>{const k=cart[p.id]||0;
+    return `<div class="card">${p.o>p.p?`<span class="tag">-${Math.round((1-p.p/p.o)*100)}%</span>`:""}${th(p,"img")}<h4>${p.n}</h4><div class="d">${p.d||""}</div>
+    <div class="pr"><div class="p">${p.p.toLocaleString("en-US")} <small style="font-size:10px">أوقية</small>${p.o>p.p?`<s>${p.o.toLocaleString("en-US")}</s>`:""}</div>
+    ${k?`<div class="qty"><button data-m="${p.id}">−</button><b>${k}</b><button data-a="${p.id}">+</button></div>`:`<button class="add" data-a="${p.id}">+</button>`}</div></div>`}).join(""):`<div class="empty">لا توجد منتجات</div>`;
+  const ids=Object.keys(cart).filter(i=>P.some(p=>p.id==i)),n=ids.reduce((s,i)=>s+cart[i],0),t=tot();
+  $("cb").style.display=n?"flex":"none";$("cc").textContent="🛒 "+n+" منتج";$("ct").textContent=fm(t);
+}
+function tot(){return P.reduce((s,p)=>s+p.p*(cart[p.id]||0),0)}
+function drawCart(){
+  const L=P.filter(p=>cart[p.id]);
+  $("items").innerHTML=L.map(p=>`<div class="row">${th(p,"th")}<div class="n">${p.n}<small>${fm(p.p*cart[p.id])}</small></div><div class="qty"><button data-m="${p.id}">−</button><b>${cart[p.id]}</b><button data-a="${p.id}">+</button></div></div>`).join("")||`<div class="empty">السلة فارغة</div>`;
+  const s=tot(),f=s>=FREE||!s?0:FEE;$("s1").textContent=fm(s);$("s2").textContent=f?fm(f):"مجاني";$("s3").textContent=fm(s+f);
+}
+function chg(id,d){const k=Math.max(0,(cart[id]||0)+d);k?cart[id]=k:delete cart[id];ls.set("csc",cart);render();if($("cart").classList.contains("open"))drawCart()}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-a],[data-m],[data-c],[data-close],[data-del]");if(!t)return;
+  if(t.dataset.a)chg(+t.dataset.a,1);else if(t.dataset.m)chg(+t.dataset.m,-1);
+  else if(t.dataset.c){cat=t.dataset.c;render()}
+  else if(t.dataset.close!==undefined)t.closest(".sheet").classList.remove("open");
+  else if(t.dataset.del){P=P.filter(p=>p.id!=t.dataset.del);ls.set("csp",P);adList();render()}
+});
+$("q").oninput=render;
+$("cb").onclick=()=>{drawCart();$("cart").classList.add("open")};
+$("send").onclick=()=>{
+  const L=P.filter(p=>cart[p.id]);if(!L.length)return toast("السلة فارغة");
+  const s=tot(),f=s>=FREE?0:FEE;
+  let m="مرحباً متجر كرفور سيتي سمار، أود إتمام هذا الطلب:\n\n";
+  L.forEach((p,i)=>m+=(i+1)+". "+p.n+" × "+cart[p.id]+" = "+fm(p.p*cart[p.id])+"\n");
+  m+="\nالمجموع: "+fm(s)+"\nالتوصيل: "+(f?fm(f):"مجاني")+"\nالإجمالي: "+fm(s+f);
+  if($("nm").value)m+="\n\nالاسم: "+$("nm").value;if($("ad").value)m+="\nالعنوان: "+$("ad").value;
+  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(m),"_blank");
+};
+/* admin */
+$("adm").onclick=()=>{$("admin").classList.add("open");$("login").style.display=ok?"none":"block";$("form").style.display=ok?"block":"none";if(ok)adList()};
+$("go").onclick=()=>{if($("pin").value===pin){ok=true;$("login").style.display="none";$("form").style.display="block";adList()}else toast("الرمز خاطئ")};
+$("prev").onclick=()=>$("file").click();
+$("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),s=Math.min(1,500/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);img=c.toDataURL("image/jpeg",.75);$("prev").style.backgroundImage="url("+img+")";$("prev").textContent=""};im.src=r.result};r.readAsDataURL(f)};
+$("save").onclick=()=>{
+  const n=$("pn").value.trim(),p=+$("pp").value;if(!n||!p)return toast("أدخل الاسم والسعر");
+  P.push({id:Date.now(),n,d:$("pd").value.trim(),p,o:+$("po").value||0,c:$("pc").value.trim()||"عام",img,bg:"#e5e7eb"});
+  ls.set("csp",P);["pn","pd","pp","po","pc"].forEach(i=>$(i).value="");img="";$("prev").style.backgroundImage="";$("prev").textContent="📷";
+  toast("تمت إضافة المنتج ✓");adList();render();
+};
+$("savepin").onclick=()=>{const v=$("newpin").value.trim();if(v.length<4)return toast("4 أرقام على الأقل");pin=v;ls.set("cspin",pin);$("newpin").value="";toast("تم حفظ الرمز ✓")};
+function adList(){$("list").innerHTML=P.map(p=>`<div class="row">${th(p,"th")}<div class="n">${p.n}<small>${fm(p.p)}</small></div><button class="btn r" data-del="${p.id}">حذف</button></div>`).join("")}
+render();
+</script>
 </body>
-</html>
+</html>          
