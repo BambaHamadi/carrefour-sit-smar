@@ -1,170 +1,185 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>كارفور سيت سمار</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f4f7f3;color:#1e3a29}
-header{background:#fff;padding:12px;display:flex;gap:8px;justify-content:center;position:sticky;top:0;z-index:5;box-shadow:0 1px 4px #0002}
-button{font-family:inherit;cursor:pointer;border:0;border-radius:10px;padding:12px 16px;background:#237a4b;color:#fff;font-size:15px}
-button.light{background:#e2eee6;color:#1e3a29}
-button.red{background:#c0392b}
-.hero{text-align:center;padding:20px 12px 4px}
-.hero h1{margin:0;font-size:26px}
-main{padding:12px;max-width:900px;margin:auto}
-input,select,textarea{width:100%;padding:13px;margin:6px 0;border:1px solid #ccc;border-radius:10px;font-family:inherit;font-size:15px;background:#fff}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 1px 5px #0001;display:flex;flex-direction:column;gap:6px}
-.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#eee}
-.ph{width:100%;aspect-ratio:1;border-radius:12px;background:#e9efe9;display:flex;align-items:center;justify-content:center;font-size:40px}
-.card h3{margin:4px 0;font-size:16px}
-.price{color:#237a4b;font-weight:bold}
-.box{background:#fff;border-radius:16px;padding:14px;margin-bottom:14px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #eee}
-.row .t{flex:1}
-.qty button{padding:4px 12px}
-.hide{display:none}
-.mini{display:flex;gap:6px}
-.mini button{padding:8px 12px;font-size:13px}
-#prev{width:120px;height:120px;object-fit:cover;border-radius:12px;display:none;margin:6px 0}
-footer{text-align:center;padding:20px;color:#557}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كارفور سيتي سمار - متجر</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        app: {
+                            green: '#0b764c', 
+                            light: '#f4f7f6',
+                            yellow: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body>
-<header>
-<button onclick="show('shop')">المنتجات</button>
-<button onclick="show('cartv')">🛒 السلة (<span id="cc">0</span>)</button>
-<button class="light" onclick="openAdmin()">الإدارة</button>
-</header>
-<div class="hero"><h1>🌳 كارفور سيت سمار</h1><p>متجر منتجات DXN — اطلبوا بسهولة عبر واتساب</p></div>
-<main>
-<section id="shop">
-<input id="q" placeholder="🔎 اكتب اسم المنتج..." oninput="render()">
-<select id="role" onchange="render();renderCart()"><option value="c">أنا زبون غير عضو</option><option value="m">أنا عضو DXN</option></select>
-<h2>🌿 منتجاتنا</h2>
-<div class="grid" id="list"></div>
-</section>
+<body class="bg-gray-100 text-gray-800 antialiased pb-20">
 
-<section id="cartv" class="hide">
-<h2>🛒 سلة المشتريات</h2>
-<div class="box" id="cart"></div>
-<button onclick="sendOrder()" style="width:100%">إرسال الطلب عبر واتساب</button>
-</section>
+    <div class="max-w-md mx-auto bg-white min-h-screen relative shadow-2xl overflow-hidden">
 
-<section id="admin" class="hide">
-<h2>⚙️ إدارة المتجر</h2>
-<div class="box">
-<h3 id="ftitle">إضافة منتج جديد</h3>
-<input id="n" placeholder="اسم المنتج">
-<input type="file" id="f" accept="image/*" onchange="pick(this)">
-<img id="prev">
-<input id="pc" type="number" inputmode="numeric" placeholder="سعر الزبون MRU">
-<input id="pm" type="number" inputmode="numeric" placeholder="سعر العضو MRU">
-<input id="st" type="number" inputmode="numeric" placeholder="الكمية المتوفرة">
-<button onclick="save()">حفظ المنتج</button>
-<button class="light" onclick="resetForm()">إلغاء</button>
-</div>
-<div class="box">
-<h3>المنتجات الحالية</h3>
-<div id="alist"></div>
-</div>
-<div class="box">
-<h3>نشر المنتجات للجميع</h3>
-<p style="font-size:14px">المنتجات التي تضيفها تُحفظ في هاتفك. لتظهر لكل الزبائن: اضغط الزر، ثم ارفع الملف <b>products.json</b> على GitHub (Add file ← Upload files).</p>
-<button onclick="exportJson()">تنزيل products.json</button>
-</div>
-</section>
-</main>
-<footer>كارفور سيت سمار 🌳<br>للطلب والاستفسار عبر واتساب</footer>
+        <header class="p-4 flex justify-between items-center bg-white sticky top-0 z-40">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-app-green text-white rounded-full flex items-center justify-center font-bold text-xl shadow-md">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div>
+                    <p class="text-[11px] text-gray-500 mb-0.5">التوصيل إلى</p>
+                    <p class="text-sm font-bold text-app-green flex items-center gap-1">
+                        كارفور سيتي سمار <i class="fas fa-chevron-down text-[10px]"></i>
+                    </p>
+                </div>
+            </div>
+            <div class="bg-gray-100 p-2.5 rounded-full relative cursor-pointer">
+                <i class="far fa-bell text-gray-600"></i>
+                <span class="absolute top-1 right-1 bg-red-500 w-2.5 h-2.5 rounded-full border-2 border-white"></span>
+            </div>
+        </header>
 
-<script>
-const WA="22226141711", PIN="1234";
-const DEF=[
-{id:1,name:"معجون الأسنان",img:"",pc:550,pm:380,st:100},
-{id:2,name:"سبرولينا 500غ",img:"",pc:3650,pm:3650,st:80}
-];
-let P=[],cart={},editId=null,img="",ok=false;
-const $=id=>document.getElementById(id);
+        <div class="px-4 pb-3 bg-white">
+            <div class="bg-gray-100 rounded-xl flex items-center p-3 border border-gray-200 focus-within:border-app-green focus-within:bg-white transition-all">
+                <i class="fas fa-search text-gray-400 ml-3"></i>
+                <input type="text" placeholder="ابحث عن منتجات صحية..." class="bg-transparent w-full outline-none text-sm placeholder-gray-400">
+                <i class="fas fa-sliders-h text-app-green mr-3"></i>
+            </div>
+        </div>
 
-async function init(){
- try{const s=localStorage.getItem("prods");if(s)P=JSON.parse(s)}catch(e){}
- if(!P.length){
-  try{const r=await fetch("products.json",{cache:"no-store"});if(r.ok)P=await r.json()}catch(e){}
- }
- if(!P.length)P=DEF;
- render();renderCart();
-}
-function persist(){try{localStorage.setItem("prods",JSON.stringify(P))}catch(e){alert("الذاكرة ممتلئة، استخدم صوراً أقل")}}
-function show(id){["shop","cartv","admin"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
-function price(p){return $("role").value==="m"?p.pm:p.pc}
-function render(){
- const q=$("q").value.trim();
- $("list").innerHTML=P.filter(p=>p.name.includes(q)).map(p=>`
- <div class="card">${p.img?`<img src="${p.img}" alt="">`:`<div class="ph">🌿</div>`}
- <h3>${p.name}</h3><div class="price">MRU ${price(p)}</div>
- <div>المتوفر: ${p.st}</div>
- <button onclick="add(${p.id})" ${p.st<1?"disabled":""}>أضف إلى السلة</button></div>`).join("")||"<p>لا توجد منتجات</p>";
-}
-function add(id){const p=P.find(x=>x.id===id);if((cart[id]||0)<p.st){cart[id]=(cart[id]||0)+1;renderCart()}}
-function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
-function renderCart(){
- let tot=0,n=0,h="";
- for(const id in cart){const p=P.find(x=>x.id==id);if(!p){delete cart[id];continue}
-  const s=price(p)*cart[id];tot+=s;n+=cart[id];
-  h+=`<div class="row"><div class="t">${p.name}<br><small>MRU ${s}</small></div><div class="qty mini"><button onclick="chg(${id},1)">+</button><b>${cart[id]}</b><button onclick="chg(${id},-1)">−</button></div></div>`}
- $("cc").textContent=n;
- $("cart").innerHTML=(h||"السلة فارغة")+`<h3>الإجمالي: ${tot} MRU</h3>`;
-}
-function sendOrder(){
- if(!Object.keys(cart).length)return alert("السلة فارغة");
- let m="طلب جديد من متجر كارفور سيتي سمار 🌳%0A"+($("role").value==="m"?"(عضو DXN)":"(زبون)")+"%0A%0A",t=0;
- for(const id in cart){const p=P.find(x=>x.id==id),s=price(p)*cart[id];t+=s;m+=`• ${p.name} × ${cart[id]} = ${s} MRU%0A`}
- m+=`%0Aالإجمالي: ${t} MRU`;
- window.open(`https://wa.me/${WA}?text=${m}`,"_blank");
-}
-/* Admin */
-function openAdmin(){
- if(!ok){if(prompt("أدخل رمز الإدارة")!==PIN)return alert("الرمز خاطئ");ok=true}
- show("admin");renderAdmin();
-}
-function renderAdmin(){
- $("alist").innerHTML=P.map(p=>`<div class="row">${p.img?`<img src="${p.img}" width="50" height="50" style="border-radius:8px;object-fit:cover">`:"🌿"}
- <div class="t">${p.name}<br><small>الزبون ${p.pc} | العضو ${p.pm} | الكمية ${p.st}</small></div>
- <div class="mini"><button class="light" onclick="edit(${p.id})">تعديل</button><button class="red" onclick="del(${p.id})">حذف</button></div></div>`).join("");
-}
-function pick(el){
- const f=el.files[0];if(!f)return;
- const r=new FileReader();
- r.onload=e=>{const i=new Image();i.onload=()=>{
-  const m=600,s=Math.min(1,m/Math.max(i.width,i.height)),c=document.createElement("canvas");
-  c.width=i.width*s;c.height=i.height*s;c.getContext("2d").drawImage(i,0,0,c.width,c.height);
-  img=c.toDataURL("image/jpeg",.7);$("prev").src=img;$("prev").style.display="block"};i.src=e.target.result};
- r.readAsDataURL(f);
-}
-function save(){
- const name=$("n").value.trim();if(!name)return alert("اكتب اسم المنتج");
- const o={name,img,pc:+$("pc").value||0,pm:+$("pm").value||0,st:+$("st").value||0};
- if(editId){const p=P.find(x=>x.id===editId);Object.assign(p,o)}
- else P.push({id:Date.now(),...o});
- persist();resetForm();renderAdmin();render();
-}
-function edit(id){
- const p=P.find(x=>x.id===id);editId=id;img=p.img;
- $("n").value=p.name;$("pc").value=p.pc;$("pm").value=p.pm;$("st").value=p.st;
- $("prev").src=img;$("prev").style.display=img?"block":"none";
- $("ftitle").textContent="تعديل المنتج (اترك الصورة كما هي أو اختر غيرها)";scrollTo(0,0);
-}
-function del(id){if(confirm("حذف المنتج؟")){P=P.filter(x=>x.id!==id);delete cart[id];persist();renderAdmin();render();renderCart()}}
-function resetForm(){editId=null;img="";["n","pc","pm","st","f"].forEach(x=>$(x).value="");$("prev").style.display="none";$("ftitle").textContent="إضافة منتج جديد"}
-function exportJson(){
- const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([JSON.stringify(P)],{type:"application/json"}));
- a.download="products.json";a.click();
-}
-init();
-</script>
+        <div class="px-4 py-2 bg-white">
+            <div class="bg-app-green rounded-2xl p-5 text-white flex justify-between items-center relative overflow-hidden shadow-md">
+                <div class="z-10 w-2/3">
+                    <h3 class="font-extrabold text-lg mb-1 leading-tight">احصل على توصيل مجاني</h3>
+                    <p class="text-xs text-green-100 opacity-90 mb-3">عند تسوقك بـ 2,000 أوقية أو أكثر</p>
+                    <button class="bg-app-yellow text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">تصفح الآن</button>
+                </div>
+                <div class="absolute -left-4 -bottom-4 opacity-50 text-7xl z-0">
+                    <i class="fas fa-shopping-basket"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white pt-2 pb-4">
+            <div class="flex gap-2 overflow-x-auto px-4 hide-scroll">
+                <button class="bg-app-green text-white px-5 py-1.5 rounded-full text-sm font-bold shrink-0 shadow-sm border border-app-green">الكل</button>
+                <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-full text-sm font-medium shrink-0 hover:bg-gray-50 transition">مكملات غذائية</button>
+                <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-full text-sm font-medium shrink-0 hover:bg-gray-50 transition">مشروبات وعصائر</button>
+                <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-full text-sm font-medium shrink-0 hover:bg-gray-50 transition">عناية شخصية</button>
+            </div>
+        </div>
+
+        <div class="p-4 bg-app-light grid grid-cols-2 gap-3 min-h-screen">
+            
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
+                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+                    <i class="far fa-heart"></i>
+                </button>
+                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Spirulina" alt="سبيرولينا" class="max-h-full object-contain mix-blend-multiply">
+                </div>
+                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">طحالب الاسبيرولينا</h4>
+                <p class="text-[11px] text-gray-500 mb-3">120 حبة</p>
+                <div class="mt-auto">
+                    <p class="font-extrabold text-app-green text-base mb-2">6,500 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
+                    <a href="https://wa.me/22226141711?text=أريد طلب طحالب الاسبيرولينا" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
+                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+                    <i class="far fa-heart"></i>
+                </button>
+                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Reishi" alt="فطر الريشي" class="max-h-full object-contain mix-blend-multiply">
+                </div>
+                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">فطر الريشي (جانوديرما)</h4>
+                <p class="text-[11px] text-gray-500 mb-3">ملك الأعشاب</p>
+                <div class="mt-auto">
+                    <p class="font-extrabold text-app-green text-base mb-2">8,200 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
+                    <a href="https://wa.me/22226141711?text=أريد طلب فطر الريشي" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
+                <div class="absolute top-2 right-2 bg-app-yellow text-white text-[10px] font-bold px-2 py-0.5 rounded">خصم</div>
+                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+                    <i class="far fa-heart"></i>
+                </button>
+                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Cocozhi" alt="كوكوزي" class="max-h-full object-contain mix-blend-multiply">
+                </div>
+                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">مشروب كوكوزي</h4>
+                <p class="text-[11px] text-gray-500 mb-3">مشروب شوكولاتة صحي</p>
+                <div class="mt-auto">
+                    <div class="flex items-center gap-2 mb-2">
+                        <p class="font-extrabold text-app-green text-base">5,400</p>
+                        <p class="text-[10px] text-gray-400 line-through">6,000</p>
+                    </div>
+                    <a href="https://wa.me/22226141711?text=أريد طلب مشروب كوكوزي" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col relative">
+                <button class="absolute top-2 left-2 bg-gray-50 w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition">
+                    <i class="far fa-heart"></i>
+                </button>
+                <div class="h-28 bg-gray-50 rounded-xl mb-3 flex items-center justify-center p-2">
+                    <img src="https://via.placeholder.com/150/e8f5e9/2E7D32?text=Coffee" alt="قهوة لينجزي" class="max-h-full object-contain mix-blend-multiply">
+                </div>
+                <h4 class="font-bold text-sm text-gray-800 mb-1 leading-tight">قهوة لينجزي السوداء</h4>
+                <p class="text-[11px] text-gray-500 mb-3">بدون سكر</p>
+                <div class="mt-auto">
+                    <p class="font-extrabold text-app-green text-base mb-2">4,500 <span class="text-[10px] font-normal text-gray-500">أوقية</span></p>
+                    <a href="https://wa.me/22226141711?text=أريد طلب قهوة لينجزي" class="w-full bg-app-green text-white flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-bold hover:bg-green-800 transition shadow-sm">
+                        إضافة للسلة <i class="fas fa-plus text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-200 flex justify-around py-3 px-2 z-50 rounded-t-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
+            <a href="#" class="flex flex-col items-center text-app-green">
+                <i class="fas fa-home text-xl mb-1"></i>
+                <span class="text-[10px] font-bold">الرئيسية</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-app-green transition">
+                <i class="fas fa-th-large text-xl mb-1"></i>
+                <span class="text-[10px] font-medium">الأقسام</span>
+            </a>
+            <a href="https://wa.me/22226141711" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-app-green transition relative">
+                <div class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-white">2</div>
+                <i class="fas fa-shopping-cart text-xl mb-1"></i>
+                <span class="text-[10px] font-medium">السلة</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-400 hover:text-app-green transition">
+                <i class="far fa-user text-xl mb-1"></i>
+                <span class="text-[10px] font-medium">حسابي</span>
+            </a>
+        </div>
+
+    </div>
+
 </body>
 </html>
