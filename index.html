@@ -185,8 +185,23 @@ function loadProducts() {
 function cats(){var s=['الكل'];P.forEach(function(p){if(s.indexOf(p[1])<0)s.push(p[1])});return s}
 
 function drawImg(imgUrl) {
-    if(imgUrl && imgUrl !== '') {
-        // يعرض الصورة، وإذا فشل التحميل يعرض أيقونة فارغة مؤقتاً
+    if(imgUrl && imgUrl !== '') { 
+        .tile {
+  height:190px;
+  border-radius:18px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  padding:10px;
+}
+.tile img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  position:relative;
+  z-index:1;
+}
         return '<img src="'+imgUrl+'" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';"><i style="display:none"></i>';
     }
     return '<i></i>';
