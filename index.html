@@ -99,8 +99,8 @@ input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg)
     <button class="btn s" id="go">تسجيل الدخول</button>
   </div>
   <div id="form" style="display:none">
-    <p style="font-size:12px; color:var(--mu); margin-bottom:10px;">أضف مسار الصورة المرفوعة على GitHub، مثال: images/product.jpg</p>
-    <input id="pimg" placeholder="مسار الصورة (اختياري)">
+    <p style="font-size:12px; color:var(--mu); margin-bottom:10px;">أضف رابط الصورة المباشر من الإنترنت (ينتهي بـ .jpg أو .png)</p>
+    <input id="pimg" placeholder="رابط الصورة (اختياري)">
     <input id="pn" placeholder="اسم المنتج">
     <input id="pd" placeholder="وصف قصير">
     <input id="pp" type="number" inputmode="numeric" placeholder="سعر الزبون (أوقية)">
@@ -115,69 +115,57 @@ input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg)
 <div class="toast" id="toast"></div>
 
 <script>
-// الإعدادات
+// الإعدادات - يمكنك تغييرها من هنا
 const WA="22226141711", FREE=2000, FEE=200;
 const ADMIN_EMAIL = "admin@dxn.com";
 const ADMIN_PASS = "123456";
 
-// الكتالوج المدمج الثابت لجميع الزوار
+// الكتالوج المدمج الثابت لجميع الزوار مع روابط صور جاهزة
 const CATALOG = [
   // المكملات الغذائية
-  {id:101, n:"الريشي (RG 30)", d:"30 كبسولة", p:720, dp:570, c:"مكملات", img:"images/rg30.jpg", e:"🍄", bg:"#fee2e2"},
-  {id:102, n:"الريشي (RG 90)", d:"90 كبسولة", p:2050, dp:1600, c:"مكملات", img:"images/rg90.jpg", e:"🍄", bg:"#fee2e2"},
-  {id:103, n:"الريشي (RG 360)", d:"360 كبسولة", p:6940, dp:5420, c:"مكملات", img:"images/rg360.jpg", e:"🍄", bg:"#fee2e2"},
-  {id:104, n:"جانوسيليوم (GL 30)", d:"30 كبسولة", p:720, dp:570, c:"مكملات", img:"images/gl30.jpg", e:"🍄", bg:"#fef3c7"},
-  {id:105, n:"جانوسيليوم (GL 90)", d:"90 كبسولة", p:2050, dp:1600, c:"مكملات", img:"images/gl90.jpg", e:"🍄", bg:"#fef3c7"},
-  {id:106, n:"جانوسيليوم (GL 360)", d:"360 كبسولة", p:6940, dp:5420, c:"مكملات", img:"images/gl360.jpg", e:"🍄", bg:"#fef3c7"},
-  {id:107, n:"سبيرولينا 120", d:"120 حبة", p:1050, dp:820, c:"مكملات", img:"images/spirulina120.jpg", e:"🌿", bg:"#d1fae5"},
-  {id:108, n:"سبيرولينا 500", d:"500 حبة", p:3940, dp:3080, c:"مكملات", img:"images/spirulina500.jpg", e:"🌿", bg:"#d1fae5"},
-  {id:109, n:"سبيرولينا بودرة", d:"50 غرام", p:1770, dp:1390, c:"مكملات", img:"images/spirulina_pwd.jpg", e:"🌿", bg:"#d1fae5"},
-  {id:110, n:"عرف الأسد 120", d:"120 حبة", p:1570, dp:1230, c:"مكملات", img:"images/lionsmane.jpg", e:"🦁", bg:"#ffedd5"},
-  {id:111, n:"كورديسيبس 120", d:"120 حبة", p:3920, dp:3060, c:"مكملات", img:"images/cordyceps.jpg", e:"💊", bg:"#fae8ff"},
-  {id:112, n:"بوتنزي", d:"30 كبسولة", p:1460, dp:1140, c:"مكملات", img:"images/potenzhi.jpg", e:"⚡", bg:"#e0f2fe"},
-  {id:113, n:"أندرو-جي", d:"30 كبسولة", p:630, dp:490, c:"مكملات", img:"images/androg.jpg", e:"🍃", bg:"#dcfce7"},
-  {id:114, n:"لقاح النحل", d:"120 حبة", p:1150, dp:900, c:"مكملات", img:"images/beepollen.jpg", e:"🐝", bg:"#fef9c3"},
+  {id:101, n:"الريشي (RG 30)", d:"30 كبسولة", p:720, dp:570, c:"مكملات", img:"https://dxn-mena.com/img/products/p_3.png", e:"🍄", bg:"#fee2e2"},
+  {id:102, n:"الريشي (RG 90)", d:"90 كبسولة", p:2050, dp:1600, c:"مكملات", img:"https://dxn-mena.com/img/products/p_3.png", e:"🍄", bg:"#fee2e2"},
+  {id:103, n:"الريشي (RG 360)", d:"360 كبسولة", p:6940, dp:5420, c:"مكملات", img:"https://dxn-mena.com/img/products/p_3.png", e:"🍄", bg:"#fee2e2"},
+  {id:104, n:"جانوسيليوم (GL 30)", d:"30 كبسولة", p:720, dp:570, c:"مكملات", img:"https://dxn-mena.com/img/products/p_2.png", e:"🍄", bg:"#fef3c7"},
+  {id:105, n:"جانوسيليوم (GL 90)", d:"90 كبسولة", p:2050, dp:1600, c:"مكملات", img:"https://dxn-mena.com/img/products/p_2.png", e:"🍄", bg:"#fef3c7"},
+  {id:106, n:"جانوسيليوم (GL 360)", d:"360 كبسولة", p:6940, dp:5420, c:"مكملات", img:"https://dxn-mena.com/img/products/p_2.png", e:"🍄", bg:"#fef3c7"},
+  {id:107, n:"سبيرولينا 120", d:"120 حبة", p:1050, dp:820, c:"مكملات", img:"https://dxn-mena.com/img/products/p_1.png", e:"🌿", bg:"#d1fae5"},
+  {id:108, n:"سبيرولينا 500", d:"500 حبة", p:3940, dp:3080, c:"مكملات", img:"https://dxn-mena.com/img/products/p_1.png", e:"🌿", bg:"#d1fae5"},
+  {id:109, n:"سبيرولينا بودرة", d:"50 غرام", p:1770, dp:1390, c:"مكملات", img:"https://dxn-mena.com/img/products/p_4.png", e:"🌿", bg:"#d1fae5"},
+  {id:110, n:"عرف الأسد 120", d:"120 حبة", p:1570, dp:1230, c:"مكملات", img:"https://dxn-mena.com/img/products/p_5.png", e:"🦁", bg:"#ffedd5"},
+  {id:111, n:"كورديسيبس 120", d:"120 حبة", p:3920, dp:3060, c:"مكملات", img:"https://dxn-mena.com/img/products/p_6.png", e:"💊", bg:"#fae8ff"},
+  {id:112, n:"بوتنزي", d:"30 كبسولة", p:1460, dp:1140, c:"مكملات", img:"https://dxn-mena.com/img/products/p_8.png", e:"⚡", bg:"#e0f2fe"},
+  {id:113, n:"أندرو-جي", d:"30 كبسولة", p:630, dp:490, c:"مكملات", img:"https://dxn-mena.com/img/products/p_7.png", e:"🍃", bg:"#dcfce7"},
   
   // الأطعمة والمشروبات
-  {id:201, n:"عصير المورنزي", d:"عصير نوني", p:880, dp:680, c:"مشروبات", img:"images/morinzhi.jpg", e:"🧃", bg:"#ede9fe"},
-  {id:202, n:"عصير المورينزايم", d:"عصير مخمر", p:880, dp:680, c:"مشروبات", img:"images/morinzyme.jpg", e:"🧃", bg:"#ede9fe"},
-  {id:203, n:"عصير الكوردي باين", d:"كورديسيبس وأناناس", p:2420, dp:1890, c:"مشروبات", img:"images/cordypine.jpg", e:"🍍", bg:"#fef3c7"},
-  {id:204, n:"عصير روسيل", d:"عصير الكركديه", p:660, dp:520, c:"مشروبات", img:"images/roselle.jpg", e:"🌺", bg:"#fee2e2"},
-  {id:205, n:"عصير الكيوي", d:"عصير طبيعي", p:1370, dp:1060, c:"مشروبات", img:"images/kiwi.jpg", e:"🥝", bg:"#d1fae5"},
-  {id:206, n:"قهوة لينجزي 3 في 1", d:"مزيج القهوة", p:840, dp:660, c:"مشروبات", img:"images/coffee3in1.jpg", e:"☕", bg:"#f3f4f6"},
-  {id:207, n:"قهوة لينجزي لايت", d:"3 في 1 لايت", p:840, dp:660, c:"مشروبات", img:"images/coffeelite.jpg", e:"☕", bg:"#f3f4f6"},
-  {id:208, n:"قهوة لينجزي السوداء", d:"بدون سكر", p:830, dp:650, c:"مشروبات", img:"images/blackcoffee.jpg", e:"☕", bg:"#e5e7eb"},
-  {id:209, n:"قهوة كورديسيبس", d:"3 في 1", p:1020, dp:800, c:"مشروبات", img:"images/cordycoffee.jpg", e:"☕", bg:"#ffedd5"},
-  {id:210, n:"كوكوزي", d:"مشروب الشوكولاتة", p:1150, dp:900, c:"مشروبات", img:"images/cocozhi.jpg", e:"🍫", bg:"#fef3c7"},
-  {id:211, n:"زي موكا", d:"قهوة بالكاكاو", p:950, dp:740, c:"مشروبات", img:"images/zhimocha.jpg", e:"☕", bg:"#f3f4f6"},
-  {id:212, n:"قهوة الكريمة", d:"كريم كوفي", p:1130, dp:880, c:"مشروبات", img:"images/creamcoffee.jpg", e:"☕", bg:"#f3f4f6"},
-  {id:213, n:"ليمونزي", d:"مشروب الليمون والريشي", p:730, dp:570, c:"مشروبات", img:"images/lemonzhi.jpg", e:"🍋", bg:"#fef9c3"},
-  {id:214, n:"شاي جانو", d:"شاي ريشي جانو", p:1750, dp:1370, c:"مشروبات", img:"images/ganotea.jpg", e:"🍵", bg:"#dcfce7"},
-  {id:215, n:"سبيرولينا سيريال", d:"حبوب السبيرولينا", p:2090, dp:1630, c:"أغذية", img:"images/cereal.jpg", e:"🥣", bg:"#d1fae5"},
-  {id:216, n:"ميكوفيجي", d:"خليط الألياف", p:2540, dp:1980, c:"أغذية", img:"images/mycoveggie.jpg", e:"🥗", bg:"#dcfce7"},
-  {id:217, n:"مربى الأناناس", d:"طبيعي", p:460, dp:360, c:"أغذية", img:"images/pinejam.jpg", e:"🍍", bg:"#fef9c3"},
-  {id:218, n:"زهي منت بلس", d:"حلوى النعناع", p:140, dp:110, c:"أغذية", img:"images/zhimint.jpg", e:"🍬", bg:"#dbeafe"},
+  {id:201, n:"عصير المورنزي", d:"عصير نوني", p:880, dp:680, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_9.png", e:"🧃", bg:"#ede9fe"},
+  {id:202, n:"عصير المورينزايم", d:"عصير مخمر", p:880, dp:680, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_10.png", e:"🧃", bg:"#ede9fe"},
+  {id:203, n:"عصير الكوردي باين", d:"كورديسيبس وأناناس", p:2420, dp:1890, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_11.png", e:"🍍", bg:"#fef3c7"},
+  {id:204, n:"عصير روسيل", d:"عصير الكركديه", p:660, dp:520, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_12.png", e:"🌺", bg:"#fee2e2"},
+  {id:206, n:"قهوة لينجزي 3 في 1", d:"مزيج القهوة", p:840, dp:660, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_14.png", e:"☕", bg:"#f3f4f6"},
+  {id:207, n:"قهوة لينجزي لايت", d:"3 في 1 لايت", p:840, dp:660, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_15.png", e:"☕", bg:"#f3f4f6"},
+  {id:208, n:"قهوة لينجزي السوداء", d:"بدون سكر", p:830, dp:650, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_16.png", e:"☕", bg:"#e5e7eb"},
+  {id:209, n:"قهوة كورديسيبس", d:"3 في 1", p:1020, dp:800, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_17.png", e:"☕", bg:"#ffedd5"},
+  {id:210, n:"كوكوزي", d:"مشروب الشوكولاتة", p:1150, dp:900, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_18.png", e:"🍫", bg:"#fef3c7"},
+  {id:211, n:"زي موكا", d:"قهوة بالكاكاو", p:950, dp:740, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_19.png", e:"☕", bg:"#f3f4f6"},
+  {id:213, n:"ليمونزي", d:"مشروب الليمون والريشي", p:730, dp:570, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_21.png", e:"🍋", bg:"#fef9c3"},
+  {id:214, n:"شاي جانو", d:"شاي ريشي جانو", p:1750, dp:1370, c:"مشروبات", img:"https://dxn-mena.com/img/products/p_22.png", e:"🍵", bg:"#dcfce7"},
+  {id:215, n:"سبيرولينا سيريال", d:"حبوب السبيرولينا", p:2090, dp:1630, c:"أغذية", img:"https://dxn-mena.com/img/products/p_23.png", e:"🥣", bg:"#d1fae5"},
+  {id:216, n:"ميكوفيجي", d:"خليط الألياف", p:2540, dp:1980, c:"أغذية", img:"https://dxn-mena.com/img/products/p_24.png", e:"🥗", bg:"#dcfce7"},
+  {id:218, n:"زهي منت بلس", d:"حلوى النعناع", p:140, dp:110, c:"أغذية", img:"https://dxn-mena.com/img/products/p_25.png", e:"🍬", bg:"#dbeafe"},
 
   // العناية الشخصية
-  {id:301, n:"صابون جانوزي", d:"بالريشي", p:200, dp:160, c:"عناية شخصية", img:"images/soap.jpg", e:"🧼", bg:"#fef9c3"},
-  {id:302, n:"معجون أسنان جانوزي", d:"150 غرام", p:450, dp:350, c:"عناية شخصية", img:"images/toothpaste150.jpg", e:"🪥", bg:"#dbeafe"},
-  {id:303, n:"معجون أسنان جانوزي", d:"75 غرام", p:290, dp:220, c:"عناية شخصية", img:"images/toothpaste75.jpg", e:"🪥", bg:"#dbeafe"},
-  {id:304, n:"شامبو جانوزي", d:"للعناية بالشعر", p:620, dp:490, c:"عناية شخصية", img:"images/shampoo.jpg", e:"🧴", bg:"#e0f2fe"},
-  {id:305, n:"رغوة الجسم جانوزي", d:"جل استحمام", p:620, dp:490, c:"عناية شخصية", img:"images/bodyfoam.jpg", e:"🚿", bg:"#cffafe"},
-  {id:306, n:"زيت جانو", d:"زيت مساج", p:570, dp:450, c:"عناية شخصية", img:"images/ganooil.jpg", e:"💧", bg:"#fef9c3"},
-  {id:307, n:"كريم شاي", d:"كريم شجرة الشاي", p:440, dp:340, c:"عناية شخصية", img:"images/teatree.jpg", e:"🌿", bg:"#dcfce7"},
-  {id:308, n:"زهي ميكو", d:"مرهم", p:550, dp:430, c:"عناية شخصية", img:"images/zhimeko.jpg", e:"🩹", bg:"#fee2e2"},
-  {id:309, n:"بودرة التالك", d:"250 غرام", p:520, dp:400, c:"عناية شخصية", img:"images/talcum.jpg", e:"☁️", bg:"#f3f4f6"},
+  {id:301, n:"صابون جانوزي", d:"بالريشي", p:200, dp:160, c:"عناية شخصية", img:"https://dxn-mena.com/img/products/p_26.png", e:"🧼", bg:"#fef9c3"},
+  {id:302, n:"معجون أسنان جانوزي", d:"150 غرام", p:450, dp:350, c:"عناية شخصية", img:"https://dxn-mena.com/img/products/p_27.png", e:"🪥", bg:"#dbeafe"},
+  {id:304, n:"شامبو جانوزي", d:"للعناية بالشعر", p:620, dp:490, c:"عناية شخصية", img:"https://dxn-mena.com/img/products/p_28.png", e:"🧴", bg:"#e0f2fe"},
+  {id:305, n:"رغوة الجسم جانوزي", d:"جل استحمام", p:620, dp:490, c:"عناية شخصية", img:"https://dxn-mena.com/img/products/p_29.png", e:"🚿", bg:"#cffafe"},
+  {id:306, n:"زيت جانو", d:"زيت مساج", p:570, dp:450, c:"عناية شخصية", img:"https://dxn-mena.com/img/products/p_30.png", e:"💧", bg:"#fef9c3"},
+  {id:307, n:"كريم شاي", d:"كريم شجرة الشاي", p:440, dp:340, c:"عناية شخصية", img:"https://dxn-mena.com/img/products/p_31.png", e:"🌿", bg:"#dcfce7"},
   
   // العناية بالبشرة (الألوفيرا)
-  {id:401, n:"ألوفيرا جل منظف", d:"للبشرة", p:460, dp:360, c:"عناية بالبشرة", img:"images/aloegel.jpg", e:"🌱", bg:"#dcfce7"},
-  {id:402, n:"ألوفيرا تونر مرطب", d:"للبشرة", p:460, dp:360, c:"عناية بالبشرة", img:"images/aloetoner.jpg", e:"🌱", bg:"#dcfce7"},
-  {id:403, n:"ألوفيرا أكوا جل", d:"مرطب نهار", p:880, dp:680, c:"عناية بالبشرة", img:"images/aloedr.jpg", e:"☀️", bg:"#dcfce7"},
-  {id:404, n:"ألوفيرا لوشن", d:"للجسم واليدين", p:460, dp:360, c:"عناية بالبشرة", img:"images/aloelotion.jpg", e:"🧴", bg:"#dcfce7"},
-  
-  // المنتجات المنزلية
-  {id:501, n:"منظف الصحون", d:"Dish Clean", p:600, dp:470, c:"منظفات", img:"images/dishclean.jpg", e:"🍽️", bg:"#e0f2fe"},
-  {id:502, n:"منظف الملابس", d:"Dyna Clean", p:710, dp:560, c:"منظفات", img:"images/dynaclean.jpg", e:"👕", bg:"#e0f2fe"}
+  {id:401, n:"ألوفيرا جل منظف", d:"للبشرة", p:460, dp:360, c:"عناية بالبشرة", img:"https://dxn-mena.com/img/products/p_34.png", e:"🌱", bg:"#dcfce7"},
+  {id:402, n:"ألوفيرا تونر مرطب", d:"للبشرة", p:460, dp:360, c:"عناية بالبشرة", img:"https://dxn-mena.com/img/products/p_35.png", e:"🌱", bg:"#dcfce7"},
+  {id:404, n:"ألوفيرا لوشن", d:"للجسم واليدين", p:460, dp:360, c:"عناية بالبشرة", img:"https://dxn-mena.com/img/products/p_37.png", e:"🧴", bg:"#dcfce7"}
 ];
 
 let P=[], cart={}, cat="الكل", ok=false;
@@ -195,11 +183,10 @@ cart=ls.get("csc",{});
 const fm=n=>n.toLocaleString("en-US")+" أوقية";
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1600)}
 
-// دالة لرسم الصورة مع إمكانية عرض الـ Emoji كبديل في حال عدم رفع الصورة
+// دالة لرسم الصورة بشكل آمن (إذا لم يجد الصورة يضع الـ Emoji)
 function drawImg(p, cls) {
   let inner = "";
   if (p.img) {
-    // حاول تحميل الصورة، وإذا فشلت، أظهر الإيموجي المخفي
     inner = `<span class="emoji-fallback" style="display:none; font-size:40px; text-align:center; width:100%;">${p.e||"📦"}</span>
              <img src="${p.img}" alt="${p.n}" onerror="this.style.display='none'; this.previousElementSibling.style.display='block';">`;
   } else {
@@ -229,7 +216,7 @@ function render(){
   $("cb").style.display=n?"flex":"none";$("cc").textContent="🛒 "+n+" منتج";$("ct").textContent=fm(t);
 }
 
-function tot(){return P.reduce((s,p)=>s+p.p*(cart[p.id]||0),0)} // حساب السلة بسعر الزبون الافتراضي
+function tot(){return P.reduce((s,p)=>s+p.p*(cart[p.id]||0),0)} // حساب السلة بسعر الزبون
 
 function drawCart(){
   const L=P.filter(p=>cart[p.id]);
