@@ -25,13 +25,14 @@ header{background:var(--g);color:#fff;padding:14px 16px 18px;border-radius:0 0 2
 .chip.on{background:var(--g);color:#fff;border-color:var(--g)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:6px 16px}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:10px;display:flex;flex-direction:column;position:relative}
-.img{height:120px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:56px;background-size:cover;background-position:center;margin-bottom:8px}
-.tag{position:absolute;top:16px;right:16px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px}
+.img{height:120px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:56px;background-size:cover;background-position:center;margin-bottom:8px;overflow:hidden;position:relative}
+.img img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
 .card h4{font-size:14px;margin-bottom:2px}.card .d{font-size:11px;color:var(--mu);margin-bottom:8px;min-height:15px}
-.pr{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px}
-.p{font-weight:800;color:var(--g);font-size:15px}.p s{display:block;color:var(--mu);font-size:11px;font-weight:400}
-.add{background:var(--g);color:#fff;border:0;width:36px;height:36px;border-radius:12px;font-size:22px;cursor:pointer}
-.qty{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:12px;padding:2px}
+.pr{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.p{font-weight:800;color:var(--tx);font-size:13px}
+.dp{font-weight:800;color:var(--g);font-size:14px;display:block;margin-top:2px}
+.add{background:var(--g);color:#fff;border:0;width:36px;height:36px;border-radius:12px;font-size:22px;cursor:pointer;flex:none}
+.qty{display:flex;align-items:center;gap:6px;background:var(--bg);border-radius:12px;padding:2px;flex:none}
 .qty button{width:30px;height:30px;border:0;border-radius:10px;background:var(--g);color:#fff;font-size:18px;cursor:pointer}
 .qty b{min-width:18px;text-align:center;font-size:14px}
 .empty{grid-column:1/-1;text-align:center;color:var(--mu);padding:40px 0}
@@ -43,7 +44,8 @@ header{background:var(--g);color:#fff;padding:14px 16px 18px;border-radius:0 0 2
 .panel h2{font-size:18px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
 .x{background:var(--bg);border:0;width:32px;height:32px;border-radius:50%;font-size:16px;color:var(--tx);cursor:pointer}
 .row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}
-.th{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;background-size:cover;background-position:center;flex:none}
+.th{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;background-size:cover;background-position:center;flex:none;overflow:hidden;position:relative;background-color:#e5e7eb}
+.th img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
 .row .n{flex:1;font-size:13px;font-weight:700}.row .n small{display:block;color:var(--g);font-weight:700}
 input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:12px;padding:11px 12px;font:inherit;font-size:14px;margin-bottom:8px}
 .sum{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}.sum.t{font-weight:800;font-size:17px;color:var(--g)}
@@ -58,7 +60,7 @@ input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg)
 <div class="app">
 <header>
   <div class="top">
-  <div class="logo" style="display:flex;align-items:center;gap:10px"><img src="logo.jpg" alt="شعار المتجر" style="height:46px;border-radius:10px;background:#fff"><div style="font-size:15px">متجر كرفور سيتي سمار<small>توصيل سريع • منتجات أصلية</small></div></div>
+  <div class="logo" style="display:flex;align-items:center;gap:10px"><div style="font-size:15px">متجر كرفور سيتي سمار<small>توصيل سريع • منتجات أصلية</small></div></div>
     <button class="ib" id="adm" aria-label="لوحة التحكم">⚙️</button>
   </div>
   <input class="search" id="q" placeholder="🔍 ابحث عن منتج...">
@@ -75,13 +77,15 @@ input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg)
 <!-- Cart -->
 <div class="sheet" id="cart"><div class="panel">
   <h2>سلة المشتريات <button class="x" data-close>✕</button></h2>
+  <p style="font-size:12px; color:var(--mu); margin-bottom:10px;">* يتم حساب السلة بسعر الزبون، سيتم تطبيق سعر العضو في واتساب إذا كنت تملك عضوية.</p>
   <div id="items"></div>
   <div style="margin-top:12px">
-    <input id="nm" placeholder="الاسم">
-    <input id="ad" placeholder="العنوان / الحي">
+    <input id="nm" placeholder="الاسم الكريم">
+    <input id="ad" placeholder="العنوان / الحي / نقطة التوصيل">
+    <input id="mid" placeholder="رقم العضوية (إن وجد للحصول على التخفيض)">
     <div class="sum"><span>المجموع</span><span id="s1"></span></div>
     <div class="sum"><span>التوصيل</span><span id="s2"></span></div>
-    <div class="sum t"><span>الإجمالي</span><span id="s3"></span></div>
+    <div class="sum t"><span>الإجمالي (سعر الزبون)</span><span id="s3"></span></div>
     <button class="btn" id="send">إرسال الطلب عبر واتساب</button>
   </div>
 </div></div>
@@ -90,103 +94,212 @@ input,select,textarea{width:100%;border:1px solid var(--bd);background:var(--bg)
 <div class="sheet" id="admin"><div class="panel">
   <h2>لوحة التحكم <button class="x" data-close>✕</button></h2>
   <div id="login">
-    <input id="pin" type="password" inputmode="numeric" placeholder="الرمز السري (الافتراضي 1234)">
-    <button class="btn s" id="go">دخول</button>
+    <input id="admin_email" type="email" placeholder="البريد الإلكتروني">
+    <input id="admin_pass" type="password" placeholder="كلمة المرور">
+    <button class="btn s" id="go">تسجيل الدخول</button>
   </div>
   <div id="form" style="display:none">
-    <div id="prev" class="img" style="background-color:var(--bg);border:2px dashed var(--bd);cursor:pointer">📷</div>
-    <input type="file" id="file" accept="image/*" style="display:none">
+    <p style="font-size:12px; color:var(--mu); margin-bottom:10px;">أضف مسار الصورة المرفوعة على GitHub، مثال: images/product.jpg</p>
+    <input id="pimg" placeholder="مسار الصورة (اختياري)">
     <input id="pn" placeholder="اسم المنتج">
-    <input id="pd" placeholder="وصف قصير (مثال: 120 حبة)">
-    <input id="pp" type="number" inputmode="numeric" placeholder="السعر (أوقية)">
-    <input id="po" type="number" inputmode="numeric" placeholder="السعر قبل الخصم (اختياري)">
+    <input id="pd" placeholder="وصف قصير">
+    <input id="pp" type="number" inputmode="numeric" placeholder="سعر الزبون (أوقية)">
+    <input id="pdp" type="number" inputmode="numeric" placeholder="سعر العضو (أوقية)">
     <input id="pc" list="cl" placeholder="القسم (مثال: مكملات)">
     <datalist id="cl"></datalist>
     <button class="btn s" id="save">إضافة المنتج</button>
-    <h2 style="margin-top:18px;font-size:15px">المنتجات الحالية</h2>
+    <h2 style="margin-top:18px;font-size:15px">المنتجات المضافة يدوياً</h2>
     <div id="list"></div>
-    <input id="newpin" type="password" inputmode="numeric" placeholder="تغيير الرمز السري" style="margin-top:12px">
-    <button class="btn s" id="savepin" style="background:#64748b">حفظ الرمز</button>
   </div>
 </div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const WA="22226141711",FREE=2000,FEE=200;
-const DEF=[
-{id:1,n:"DXN سبيرولينا",d:"طحالب | 120 حبة",p:6500,o:0,c:"مكملات",e:"🌿",bg:"#d1fae5"},
-{id:2,n:"DXN ريشي جانوديرما",d:"فطر الريشي | كبسولات",p:8200,o:0,c:"مكملات",e:"🍄",bg:"#fee2e2"},
-{id:3,n:"DXN لينجزي ريشي (RG)",d:"كبسولات",p:8500,o:0,c:"مكملات",e:"🍄",bg:"#fde7d3"},
-{id:4,n:"DXN كوردي ميس",d:"كورديسيبس | كبسولات",p:9500,o:0,c:"مكملات",e:"💊",bg:"#ede9fe"},
-{id:5,n:"DXN أوزيوم",d:"Ozium | مكمل غذائي",p:7000,o:0,c:"مكملات",e:"🌱",bg:"#dcfce7"},
-{id:6,n:"DXN زيت بذور الريشي",d:"كبسولات",p:7500,o:0,c:"مكملات",e:"💧",bg:"#fef9c3"},
-{id:7,n:"قهوة لينجزي 3 في 1",d:"20 كيس",p:4500,o:0,c:"مشروبات",e:"☕",bg:"#e7e0d8"},
-{id:8,n:"قهوة لينجزي سوداء",d:"بدون سكر | 20 كيس",p:4500,o:0,c:"مشروبات",e:"☕",bg:"#d6d3d1"},
-{id:9,n:"مشروب كوكوزي",d:"شوكولاتة صحية | 20 كيس",p:5400,o:0,c:"مشروبات",e:"🍫",bg:"#fde7d3"},
-{id:10,n:"عصير مورينزي",d:"مورينجا + نوني",p:7800,o:0,c:"مشروبات",e:"🧃",bg:"#ede9fe"},
-{id:11,n:"شاي ريشي DXN",d:"شاي أخضر بالريشي",p:2200,o:0,c:"مشروبات",e:"🍵",bg:"#dcfce7"},
-{id:12,n:"معجون أسنان DXN",d:"بالأعشاب",p:1500,o:0,c:"العناية",e:"🪥",bg:"#dbeafe"},
-{id:13,n:"صابون DXN",d:"بخلاصة الريشي",p:1200,o:0,c:"العناية",e:"🧼",bg:"#fef9c3"},
-{id:14,n:"شامبو DXN",d:"للعناية بالشعر",p:2500,o:0,c:"العناية",e:"🧴",bg:"#e0f2fe"},
-{id:15,n:"جل الاستحمام DXN",d:"بالريشي",p:2500,o:0,c:"العناية",e:"🚿",bg:"#cffafe"}];
-let P=DEF,cart={},cat="الكل",img="",pin="1234",ok=false;
+// الإعدادات
+const WA="22226141711", FREE=2000, FEE=200;
+const ADMIN_EMAIL = "admin@dxn.com";
+const ADMIN_PASS = "123456";
+
+// الكتالوج المدمج الثابت لجميع الزوار
+const CATALOG = [
+  // المكملات الغذائية
+  {id:101, n:"الريشي (RG 30)", d:"30 كبسولة", p:720, dp:570, c:"مكملات", img:"images/rg30.jpg", e:"🍄", bg:"#fee2e2"},
+  {id:102, n:"الريشي (RG 90)", d:"90 كبسولة", p:2050, dp:1600, c:"مكملات", img:"images/rg90.jpg", e:"🍄", bg:"#fee2e2"},
+  {id:103, n:"الريشي (RG 360)", d:"360 كبسولة", p:6940, dp:5420, c:"مكملات", img:"images/rg360.jpg", e:"🍄", bg:"#fee2e2"},
+  {id:104, n:"جانوسيليوم (GL 30)", d:"30 كبسولة", p:720, dp:570, c:"مكملات", img:"images/gl30.jpg", e:"🍄", bg:"#fef3c7"},
+  {id:105, n:"جانوسيليوم (GL 90)", d:"90 كبسولة", p:2050, dp:1600, c:"مكملات", img:"images/gl90.jpg", e:"🍄", bg:"#fef3c7"},
+  {id:106, n:"جانوسيليوم (GL 360)", d:"360 كبسولة", p:6940, dp:5420, c:"مكملات", img:"images/gl360.jpg", e:"🍄", bg:"#fef3c7"},
+  {id:107, n:"سبيرولينا 120", d:"120 حبة", p:1050, dp:820, c:"مكملات", img:"images/spirulina120.jpg", e:"🌿", bg:"#d1fae5"},
+  {id:108, n:"سبيرولينا 500", d:"500 حبة", p:3940, dp:3080, c:"مكملات", img:"images/spirulina500.jpg", e:"🌿", bg:"#d1fae5"},
+  {id:109, n:"سبيرولينا بودرة", d:"50 غرام", p:1770, dp:1390, c:"مكملات", img:"images/spirulina_pwd.jpg", e:"🌿", bg:"#d1fae5"},
+  {id:110, n:"عرف الأسد 120", d:"120 حبة", p:1570, dp:1230, c:"مكملات", img:"images/lionsmane.jpg", e:"🦁", bg:"#ffedd5"},
+  {id:111, n:"كورديسيبس 120", d:"120 حبة", p:3920, dp:3060, c:"مكملات", img:"images/cordyceps.jpg", e:"💊", bg:"#fae8ff"},
+  {id:112, n:"بوتنزي", d:"30 كبسولة", p:1460, dp:1140, c:"مكملات", img:"images/potenzhi.jpg", e:"⚡", bg:"#e0f2fe"},
+  {id:113, n:"أندرو-جي", d:"30 كبسولة", p:630, dp:490, c:"مكملات", img:"images/androg.jpg", e:"🍃", bg:"#dcfce7"},
+  {id:114, n:"لقاح النحل", d:"120 حبة", p:1150, dp:900, c:"مكملات", img:"images/beepollen.jpg", e:"🐝", bg:"#fef9c3"},
+  
+  // الأطعمة والمشروبات
+  {id:201, n:"عصير المورنزي", d:"عصير نوني", p:880, dp:680, c:"مشروبات", img:"images/morinzhi.jpg", e:"🧃", bg:"#ede9fe"},
+  {id:202, n:"عصير المورينزايم", d:"عصير مخمر", p:880, dp:680, c:"مشروبات", img:"images/morinzyme.jpg", e:"🧃", bg:"#ede9fe"},
+  {id:203, n:"عصير الكوردي باين", d:"كورديسيبس وأناناس", p:2420, dp:1890, c:"مشروبات", img:"images/cordypine.jpg", e:"🍍", bg:"#fef3c7"},
+  {id:204, n:"عصير روسيل", d:"عصير الكركديه", p:660, dp:520, c:"مشروبات", img:"images/roselle.jpg", e:"🌺", bg:"#fee2e2"},
+  {id:205, n:"عصير الكيوي", d:"عصير طبيعي", p:1370, dp:1060, c:"مشروبات", img:"images/kiwi.jpg", e:"🥝", bg:"#d1fae5"},
+  {id:206, n:"قهوة لينجزي 3 في 1", d:"مزيج القهوة", p:840, dp:660, c:"مشروبات", img:"images/coffee3in1.jpg", e:"☕", bg:"#f3f4f6"},
+  {id:207, n:"قهوة لينجزي لايت", d:"3 في 1 لايت", p:840, dp:660, c:"مشروبات", img:"images/coffeelite.jpg", e:"☕", bg:"#f3f4f6"},
+  {id:208, n:"قهوة لينجزي السوداء", d:"بدون سكر", p:830, dp:650, c:"مشروبات", img:"images/blackcoffee.jpg", e:"☕", bg:"#e5e7eb"},
+  {id:209, n:"قهوة كورديسيبس", d:"3 في 1", p:1020, dp:800, c:"مشروبات", img:"images/cordycoffee.jpg", e:"☕", bg:"#ffedd5"},
+  {id:210, n:"كوكوزي", d:"مشروب الشوكولاتة", p:1150, dp:900, c:"مشروبات", img:"images/cocozhi.jpg", e:"🍫", bg:"#fef3c7"},
+  {id:211, n:"زي موكا", d:"قهوة بالكاكاو", p:950, dp:740, c:"مشروبات", img:"images/zhimocha.jpg", e:"☕", bg:"#f3f4f6"},
+  {id:212, n:"قهوة الكريمة", d:"كريم كوفي", p:1130, dp:880, c:"مشروبات", img:"images/creamcoffee.jpg", e:"☕", bg:"#f3f4f6"},
+  {id:213, n:"ليمونزي", d:"مشروب الليمون والريشي", p:730, dp:570, c:"مشروبات", img:"images/lemonzhi.jpg", e:"🍋", bg:"#fef9c3"},
+  {id:214, n:"شاي جانو", d:"شاي ريشي جانو", p:1750, dp:1370, c:"مشروبات", img:"images/ganotea.jpg", e:"🍵", bg:"#dcfce7"},
+  {id:215, n:"سبيرولينا سيريال", d:"حبوب السبيرولينا", p:2090, dp:1630, c:"أغذية", img:"images/cereal.jpg", e:"🥣", bg:"#d1fae5"},
+  {id:216, n:"ميكوفيجي", d:"خليط الألياف", p:2540, dp:1980, c:"أغذية", img:"images/mycoveggie.jpg", e:"🥗", bg:"#dcfce7"},
+  {id:217, n:"مربى الأناناس", d:"طبيعي", p:460, dp:360, c:"أغذية", img:"images/pinejam.jpg", e:"🍍", bg:"#fef9c3"},
+  {id:218, n:"زهي منت بلس", d:"حلوى النعناع", p:140, dp:110, c:"أغذية", img:"images/zhimint.jpg", e:"🍬", bg:"#dbeafe"},
+
+  // العناية الشخصية
+  {id:301, n:"صابون جانوزي", d:"بالريشي", p:200, dp:160, c:"عناية شخصية", img:"images/soap.jpg", e:"🧼", bg:"#fef9c3"},
+  {id:302, n:"معجون أسنان جانوزي", d:"150 غرام", p:450, dp:350, c:"عناية شخصية", img:"images/toothpaste150.jpg", e:"🪥", bg:"#dbeafe"},
+  {id:303, n:"معجون أسنان جانوزي", d:"75 غرام", p:290, dp:220, c:"عناية شخصية", img:"images/toothpaste75.jpg", e:"🪥", bg:"#dbeafe"},
+  {id:304, n:"شامبو جانوزي", d:"للعناية بالشعر", p:620, dp:490, c:"عناية شخصية", img:"images/shampoo.jpg", e:"🧴", bg:"#e0f2fe"},
+  {id:305, n:"رغوة الجسم جانوزي", d:"جل استحمام", p:620, dp:490, c:"عناية شخصية", img:"images/bodyfoam.jpg", e:"🚿", bg:"#cffafe"},
+  {id:306, n:"زيت جانو", d:"زيت مساج", p:570, dp:450, c:"عناية شخصية", img:"images/ganooil.jpg", e:"💧", bg:"#fef9c3"},
+  {id:307, n:"كريم شاي", d:"كريم شجرة الشاي", p:440, dp:340, c:"عناية شخصية", img:"images/teatree.jpg", e:"🌿", bg:"#dcfce7"},
+  {id:308, n:"زهي ميكو", d:"مرهم", p:550, dp:430, c:"عناية شخصية", img:"images/zhimeko.jpg", e:"🩹", bg:"#fee2e2"},
+  {id:309, n:"بودرة التالك", d:"250 غرام", p:520, dp:400, c:"عناية شخصية", img:"images/talcum.jpg", e:"☁️", bg:"#f3f4f6"},
+  
+  // العناية بالبشرة (الألوفيرا)
+  {id:401, n:"ألوفيرا جل منظف", d:"للبشرة", p:460, dp:360, c:"عناية بالبشرة", img:"images/aloegel.jpg", e:"🌱", bg:"#dcfce7"},
+  {id:402, n:"ألوفيرا تونر مرطب", d:"للبشرة", p:460, dp:360, c:"عناية بالبشرة", img:"images/aloetoner.jpg", e:"🌱", bg:"#dcfce7"},
+  {id:403, n:"ألوفيرا أكوا جل", d:"مرطب نهار", p:880, dp:680, c:"عناية بالبشرة", img:"images/aloedr.jpg", e:"☀️", bg:"#dcfce7"},
+  {id:404, n:"ألوفيرا لوشن", d:"للجسم واليدين", p:460, dp:360, c:"عناية بالبشرة", img:"images/aloelotion.jpg", e:"🧴", bg:"#dcfce7"},
+  
+  // المنتجات المنزلية
+  {id:501, n:"منظف الصحون", d:"Dish Clean", p:600, dp:470, c:"منظفات", img:"images/dishclean.jpg", e:"🍽️", bg:"#e0f2fe"},
+  {id:502, n:"منظف الملابس", d:"Dyna Clean", p:710, dp:560, c:"منظفات", img:"images/dynaclean.jpg", e:"👕", bg:"#e0f2fe"}
+];
+
+let P=[], cart={}, cat="الكل", ok=false;
 const $=i=>document.getElementById(i);
-const ls={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("تعذر الحفظ (الصورة كبيرة)")}}};
-P=ls.get("csp",DEF);cart=ls.get("csc",{});pin=ls.get("cspin","1234");
+const ls={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("تعذر الحفظ")}}};
+
+// دمج الكتالوج الثابت مع المنتجات المضافة يدوياً
+function loadProducts() {
+  const manualProducts = ls.get("csp_manual", []);
+  P = [...CATALOG, ...manualProducts];
+}
+loadProducts();
+cart=ls.get("csc",{});
+
 const fm=n=>n.toLocaleString("en-US")+" أوقية";
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1600)}
-function th(p,cls){return `<div class="${cls}" style="background-color:${p.bg||"#e5e7eb"};${p.img?`background-image:url(${p.img})`:""}">${p.img?"":p.e||"📦"}</div>`}
+
+// دالة لرسم الصورة مع إمكانية عرض الـ Emoji كبديل في حال عدم رفع الصورة
+function drawImg(p, cls) {
+  let inner = "";
+  if (p.img) {
+    // حاول تحميل الصورة، وإذا فشلت، أظهر الإيموجي المخفي
+    inner = `<span class="emoji-fallback" style="display:none; font-size:40px; text-align:center; width:100%;">${p.e||"📦"}</span>
+             <img src="${p.img}" alt="${p.n}" onerror="this.style.display='none'; this.previousElementSibling.style.display='block';">`;
+  } else {
+    inner = `<span style="font-size:40px; text-align:center; width:100%;">${p.e||"📦"}</span>`;
+  }
+  return `<div class="${cls}" style="background-color:${p.bg||"#e5e7eb"}; display:flex; align-items:center; justify-content:center;">${inner}</div>`;
+}
+
 function render(){
   const cs=["الكل",...new Set(P.map(p=>p.c).filter(Boolean))];
   $("cats").innerHTML=cs.map(c=>`<button class="chip ${c==cat?"on":""}" data-c="${c}">${c}</button>`).join("");
   $("cl").innerHTML=cs.slice(1).map(c=>`<option value="${c}">`).join("");
+  
   const q=$("q").value.trim();
   const L=P.filter(p=>(cat=="الكل"||p.c==cat)&&(!q||p.n.includes(q)||(p.d||"").includes(q)));
+  
   $("grid").innerHTML=L.length?L.map(p=>{const k=cart[p.id]||0;
-    return `<div class="card">${p.o>p.p?`<span class="tag">-${Math.round((1-p.p/p.o)*100)}%</span>`:""}${th(p,"img")}<h4>${p.n}</h4><div class="d">${p.d||""}</div>
-    <div class="pr"><div class="p">${p.p.toLocaleString("en-US")} <small style="font-size:10px">أوقية</small>${p.o>p.p?`<s>${p.o.toLocaleString("en-US")}</s>`:""}</div>
+    return `<div class="card">${drawImg(p,"img")}<h4>${p.n}</h4><div class="d">${p.d||""}</div>
+    <div class="pr">
+      <div style="display:flex; flex-direction:column; line-height:1.4;">
+        <span class="p">زبون: ${p.p.toLocaleString("en-US")}</span>
+        <span class="dp">عضو: ${p.dp.toLocaleString("en-US")}</span>
+      </div>
     ${k?`<div class="qty"><button data-m="${p.id}">−</button><b>${k}</b><button data-a="${p.id}">+</button></div>`:`<button class="add" data-a="${p.id}">+</button>`}</div></div>`}).join(""):`<div class="empty">لا توجد منتجات</div>`;
+    
   const ids=Object.keys(cart).filter(i=>P.some(p=>p.id==i)),n=ids.reduce((s,i)=>s+cart[i],0),t=tot();
   $("cb").style.display=n?"flex":"none";$("cc").textContent="🛒 "+n+" منتج";$("ct").textContent=fm(t);
 }
-function tot(){return P.reduce((s,p)=>s+p.p*(cart[p.id]||0),0)}
+
+function tot(){return P.reduce((s,p)=>s+p.p*(cart[p.id]||0),0)} // حساب السلة بسعر الزبون الافتراضي
+
 function drawCart(){
   const L=P.filter(p=>cart[p.id]);
-  $("items").innerHTML=L.map(p=>`<div class="row">${th(p,"th")}<div class="n">${p.n}<small>${fm(p.p*cart[p.id])}</small></div><div class="qty"><button data-m="${p.id}">−</button><b>${cart[p.id]}</b><button data-a="${p.id}">+</button></div></div>`).join("")||`<div class="empty">السلة فارغة</div>`;
+  $("items").innerHTML=L.map(p=>`<div class="row">${drawImg(p,"th")}<div class="n">${p.n}<small>${fm(p.p*cart[p.id])}</small></div><div class="qty"><button data-m="${p.id}">−</button><b>${cart[p.id]}</b><button data-a="${p.id}">+</button></div></div>`).join("")||`<div class="empty">السلة فارغة</div>`;
   const s=tot(),f=s>=FREE||!s?0:FEE;$("s1").textContent=fm(s);$("s2").textContent=f?fm(f):"مجاني";$("s3").textContent=fm(s+f);
 }
+
 function chg(id,d){const k=Math.max(0,(cart[id]||0)+d);k?cart[id]=k:delete cart[id];ls.set("csc",cart);render();if($("cart").classList.contains("open"))drawCart()}
+
 document.addEventListener("click",e=>{
   const t=e.target.closest("[data-a],[data-m],[data-c],[data-close],[data-del]");if(!t)return;
   if(t.dataset.a)chg(+t.dataset.a,1);else if(t.dataset.m)chg(+t.dataset.m,-1);
   else if(t.dataset.c){cat=t.dataset.c;render()}
   else if(t.dataset.close!==undefined)t.closest(".sheet").classList.remove("open");
-  else if(t.dataset.del){P=P.filter(p=>p.id!=t.dataset.del);ls.set("csp",P);adList();render()}
+  else if(t.dataset.del){
+    const manualProducts = ls.get("csp_manual", []).filter(p=>p.id!=t.dataset.del);
+    ls.set("csp_manual", manualProducts); loadProducts(); adList(); render();
+  }
 });
+
 $("q").oninput=render;
 $("cb").onclick=()=>{drawCart();$("cart").classList.add("open")};
+
 $("send").onclick=()=>{
   const L=P.filter(p=>cart[p.id]);if(!L.length)return toast("السلة فارغة");
   const s=tot(),f=s>=FREE?0:FEE;
   let m="مرحباً متجر كرفور سيتي سمار، أود إتمام هذا الطلب:\n\n";
-  L.forEach((p,i)=>m+=(i+1)+". "+p.n+" × "+cart[p.id]+" = "+fm(p.p*cart[p.id])+"\n");
-  m+="\nالمجموع: "+fm(s)+"\nالتوصيل: "+(f?fm(f):"مجاني")+"\nالإجمالي: "+fm(s+f);
-  if($("nm").value)m+="\n\nالاسم: "+$("nm").value;if($("ad").value)m+="\nالعنوان: "+$("ad").value;
+  L.forEach((p,i)=>m+=(i+1)+". "+p.n+" × "+cart[p.id]+"\n   (زبون: "+fm(p.p*cart[p.id])+" | عضو: "+fm(p.dp*cart[p.id])+")\n");
+  m+="\nالمجموع (سعر الزبون): "+fm(s)+"\nالتوصيل: "+(f?fm(f):"مجاني")+"\nالإجمالي للزبون: "+fm(s+f);
+  m+="\n(يرجى حساب الفاتورة النهائية بسعر العضو إذا توفر رقم عضوية)";
+  
+  if($("nm").value)m+="\n\nالاسم: "+$("nm").value;
+  if($("ad").value)m+="\nالعنوان: "+$("ad").value;
+  if($("mid").value)m+="\nرقم العضوية: "+$("mid").value;
+  
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(m),"_blank");
 };
+
 /* admin */
 $("adm").onclick=()=>{$("admin").classList.add("open");$("login").style.display=ok?"none":"block";$("form").style.display=ok?"block":"none";if(ok)adList()};
-$("go").onclick=()=>{if($("pin").value===pin){ok=true;$("login").style.display="none";$("form").style.display="block";adList()}else toast("الرمز خاطئ")};
-$("prev").onclick=()=>$("file").click();
-$("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas"),s=Math.min(1,500/Math.max(im.width,im.height));c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);img=c.toDataURL("image/jpeg",.75);$("prev").style.backgroundImage="url("+img+")";$("prev").textContent=""};im.src=r.result};r.readAsDataURL(f)};
+
+$("go").onclick=()=>{
+  if($("admin_email").value === ADMIN_EMAIL && $("admin_pass").value === ADMIN_PASS){
+    ok=true; $("login").style.display="none"; $("form").style.display="block"; adList();
+  } else {
+    toast("البريد الإلكتروني أو كلمة المرور خاطئة");
+  }
+};
+
 $("save").onclick=()=>{
-  const n=$("pn").value.trim(),p=+$("pp").value;if(!n||!p)return toast("أدخل الاسم والسعر");
-  P.push({id:Date.now(),n,d:$("pd").value.trim(),p,o:+$("po").value||0,c:$("pc").value.trim()||"عام",img,bg:"#e5e7eb"});
-  ls.set("csp",P);["pn","pd","pp","po","pc"].forEach(i=>$(i).value="");img="";$("prev").style.backgroundImage="";$("prev").textContent="📷";
+  const n=$("pn").value.trim(), p=+$("pp").value, dp=+$("pdp").value;
+  if(!n||!p||!dp)return toast("أدخل الاسم وسعر الزبون والعضو");
+  
+  const manualProducts = ls.get("csp_manual", []);
+  manualProducts.push({
+    id:Date.now(), n, d:$("pd").value.trim(), p, dp, 
+    c:$("pc").value.trim()||"عام", img:$("pimg").value.trim()||"", e:"📦", bg:"#e5e7eb"
+  });
+  ls.set("csp_manual", manualProducts);
+  loadProducts();
+  
+  ["pn","pd","pp","pdp","pc","pimg"].forEach(i=>$(i).value="");
   toast("تمت إضافة المنتج ✓");adList();render();
 };
-$("savepin").onclick=()=>{const v=$("newpin").value.trim();if(v.length<4)return toast("4 أرقام على الأقل");pin=v;ls.set("cspin",pin);$("newpin").value="";toast("تم حفظ الرمز ✓")};
-function adList(){$("list").innerHTML=P.map(p=>`<div class="row">${th(p,"th")}<div class="n">${p.n}<small>${fm(p.p)}</small></div><button class="btn r" data-del="${p.id}">حذف</button></div>`).join("")}
+
+function adList(){
+  const manualProducts = ls.get("csp_manual", []);
+  $("list").innerHTML=manualProducts.map(p=>`<div class="row">${drawImg(p,"th")}<div class="n">${p.n}<small>${fm(p.p)}</small></div><button class="btn r" data-del="${p.id}">حذف</button></div>`).join("") || `<div class="empty" style="padding:10px 0">لا توجد منتجات يدوية</div>`;
+}
+
 render();
 </script>
 </body>
