@@ -17,6 +17,157 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;
 .cartb{background:var(--g);color:#fff;padding:9px 16px}
 .red{background:var(--gold);color:#fff}.wa{background:#25d366;color:#06361a}
 
+/* قسم البطل Hero */
+.hero{position:relative;overflow:hidden;min-height:calc(78svh - 62px);background:linear-gradient(135deg,#002b5c 0%,#004e98 55%,#1d70b8 100%);color:#fff;display:flex;align-items:center}
+.hc{position:relative;z-index:3;max-width:680px;margin:auto;padding:40px 22px;text-align:center}
+.tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:4px 16px;font-weight:700;margin-bottom:14px}
+.hc h1{font-family:'Reem Kufi',serif;font-size:clamp(2.2rem,8vw,3.8rem);line-height:1.2;margin:0 0 10px}
+.hc p{font-size:1.15rem;margin:0 auto 22px;max-width:38ch;opacity:.95}
+.hc .btn{margin:4px}
+
+section{padding:36px 16px;max-width:1100px;margin:auto}
+h2{font-family:'Reem Kufi',serif;font-size:1.9rem;margin:0 0 10px;color:var(--g2);display:flex;align-items:center;gap:14px}
+h2:after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 18px)}
+.lead{color:var(--mut);margin:0 0 18px;max-width:60ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:10px;display:flex;flex-direction:column;box-shadow:0 10px 24px rgba(0,51,102,.07)}
+.tile{height:165px;border-radius:18px;display:grid;place-items:center;background:#eef3fa;overflow:hidden}
+.tile img{height:100%;width:100%;object-fit:cover}
+.card h3{font-size:.98rem;margin:12px 4px 6px;text-align:center;flex:1}
+.pr{margin:0 2px 8px}.pr span{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:12px;font-size:.9rem}
+.pr .m{background:var(--g);color:#fff;font-weight:800}
+.card .add{margin:0;border-radius:14px;background:var(--gold);color:#fff;padding:10px;width:100%}
+
+.about{display:grid;gap:18px}@media(min-width:760px){.about{grid-template-columns:1fr 1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px}
+footer{text-align:center;padding:24px 16px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
+
+/* شريط الصور المتحرك التلقائي للمنتجات */
+.ccs-slider{background:var(--card);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden}
+.ccs-slider-hd{text-align:center;font-weight:800;color:var(--g2);margin-bottom:12px;font-size:1.05rem}
+.ccs-track{display:flex;width:max-content;animation:ccsMove 26s linear infinite}
+.ccs-track:hover{animation-play-state:paused}
+.ccs-slide{width:160px;margin:0 8px;background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:10px;text-align:center;cursor:pointer;flex-shrink:0;transition:transform .2s}
+.ccs-slide:hover{transform:translateY(-3px)}
+.ccs-slide img{width:100%;height:105px;object-fit:cover;border-radius:12px}
+.ccs-slide b{display:block;font-size:.88rem;margin-top:6px;color:var(--g2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ccs-slide span{font-size:.82rem;font-weight:800;color:var(--gold)}
+@keyframes ccsMove{0%{transform:translateX(0)}100%{transform:translateX(50%)}}
+
+/* نافذة السلة، التطبيقات البنكية، خانة الكبتير، والفاتورة الجاهزة */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,20,38,.72);z-index:100;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(5px)}
+.modal-bg.open{display:flex}
+.modal{background:var(--card);color:var(--ink);width:100%;max-width:490px;max-height:92vh;overflow-y:auto;border-radius:26px;padding:20px;border:1px solid var(--line);position:relative;box-shadow:0 20px 45px rgba(0,0,0,.3)}
+.close-x{position:absolute;top:14px;left:14px;background:var(--bg);color:var(--ink);width:34px;height:34px;padding:0;border-radius:50%;display:grid;place-items:center}
+.c-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);gap:8px}
+.qty-btn{padding:2px 10px;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.banks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.bank-card{border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center;cursor:pointer;transition:.2s}
+.bank-card.active{border-color:var(--g);background:rgba(0,78,152,.08)}
+.bank-card b{display:block;color:var(--g2);font-size:.98rem}
+.bank-num{display:block;font-family:monospace;font-size:1.08rem;font-weight:800;color:var(--gold);margin:3px 0}
+.copy-btn{padding:3px 10px;font-size:.78rem;background:var(--g);color:#fff;border-radius:10px}
+.inp-group{margin-bottom:10px}
+.inp-group label{display:block;font-weight:700;font-size:.9rem;margin-bottom:4px}
+.inp-group input{width:100%;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.capture-box{border:2px dashed var(--g);border-radius:16px;padding:14px;text-align:center;cursor:pointer;background:rgba(0,78,152,.04);display:block}
+.capture-box input{display:none}
+#capPreview{max-width:100%;max-height:150px;border-radius:12px;margin:8px auto 0;display:none}
+.invoice-box{background:var(--bg);border:2px solid var(--g);border-radius:20px;padding:16px;margin-top:8px}
+.inv-line{display:flex;justify-content:space-between;font-size:.92rem;margin:5px 0}
+.inv-sum{border-top:2px solid var(--g);padding-top:8px;margin-top:8px;font-weight:800;font-size:1.1rem;display:flex;justify-content:space-between;color:var(--g2)}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">
+    <span>🛒</span>
+    <b>متجر كارفور سيتي سمارت</b>
+  </a>
+  <button class="cartb" onclick="openCart()">🛍️ السلة (<span id="cCount">0</span>)</button>
+</header>
+
+<div class="hero">
+  <div class="hc">
+    <div class="tag">نواكشوط • تسوق ذكي وتوصيل سريع</div>
+    <h1>متجر كارفور سيتي سمارت</h1>
+    <p>كل ما تحتاجه من منتجات ومستلزمات يومية وعروض مميزة بين يديك مع الدفع الفوري عبر التطبيقات البنكية.</p>
+    <a href="#products" class="btn red">تسوق الآن</a>
+    <button class="btn" style="background:rgba(255,255,255,.22);color:#fff" onclick="openCart()">سلة المشتريات</button>
+  </div>
+</div>
+
+<!-- شريط الصور المتحرك (يُعبأ تلقائياً من المنتجات الموجودة في الصفحة) -->
+<div id="autoSliderMount"></div>
+
+<section id="products">
+  <h2>منتجات المتجر</h2>
+  <p class="lead">أضف مشترياتك إلى السلة لإصدار الفاتورة الجاهزة وإرسال صورة التحويل البنكي.</p>
+  <div class="grid" id="prodGrid"></div>
+</section>
+
+<section>
+  <h2>التوصيل والدفع البنكي</h2>
+  <div class="about">
+    <div class="box">
+      <h3 style="margin-top:0;color:var(--g2)">📍 كارفور سيتي سمارت – نواكشوط</h3>
+      <p>خدمة توصيل سريعة وموثوقة لجميع أحياء ومقاطعات نواكشوط. اطلب عبر الموقع وسنصلك أينما كنت.</p>
+      <p style="margin:6px 0"><b>واتساب خدمة الزبناء:</b> <span dir="ltr">+222 26 14 17 11</span></p>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0;color:var(--g2)">💳 أرقام الدفع عبر التطبيقات البنكية</h3>
+      <p style="margin:6px 0"><b>بنكيلي (Bankily):</b> 26141711</p>
+      <p style="margin:6px 0"><b>مصرفي (Masrvi):</b> 26141711</p>
+      <p style="margin:6px 0"><b>السداد (Sedad):</b> 26141711</p>
+      <p style="margin:6px 0"><b>بيم بنك (Bimbank):</b> 26141711</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  جميع الحقوق محفوظة © متجر كارفور سيتي سمارت – نواكشوط • واتساب: <span dir="ltr">+222 26 14 17 11</span>
+</footer>
+
+<div class="modal-bg" id="cartModal">
+  <div class="modal">
+    <button class="close-x" onclick="closeCart()">✕</button>
+    <h3 style="margin:0 0 10px;color:var(--g2)">🛒 سلة المشتريات وإتمام الطلب</h3>
+
+    <div id="cartList"></div>
+    <div id="cartTotal" style="font-weight:800;font-size:1.1rem;margin:10px 0;color:var(--g2)"></div>
+
+    <div id="paySection" style="display:none">
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <h4 style="margin:0 0 6px;color:var(--g2)">1️⃣ اختر التطبيق البنكي وحوّل المبلغ إلى الرقم:</h4>
+      <div class="banks-grid">
+        <div class="bank-card active" onclick="pickBank(this,'بنكيلي','26141711')">
+          <b>بنكيلي</b>
+          <span class="bank-num">26141711</span>
+          <button type="button" class="copy-btn" onclick="copyText(event,'26141711')">نسخ الرقم</button>
+        </div>
+        <div class="bank-card" onclick="pickBank(this,'مصرفي','26141711')">
+          <b>مصرفي</b>
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light" style="color-scheme: light;">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>متجر كارفور سيتي سمارت – نواكشوط</title>
+<link href="https://googleapis.com" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--ink:#13233a;--card:#fff;--mut:#5a697e;--g:#004e98;--g2:#003366;--gold:#e63946;--line:#dce4ef;--hd:rgba(255,255,255,.9);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Tahoma,sans-serif;line-height:1.75}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 24px;font-weight:800;text-decoration:none;display:inline-block}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--hd);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:8px;flex:1;color:var(--g2);text-decoration:none;min-width:0}
+.logo b{font-family:'Reem Kufi',serif;font-size:1.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cartb{background:var(--g);color:#fff;padding:9px 16px}
+.red{background:var(--gold);color:#fff}.wa{background:#25d366;color:#06361a}
+
 /* Hero Section */
 .hero{position:relative;overflow:hidden;min-height:calc(78svh - 62px);background:linear-gradient(135deg,#002b5c 0%,#004e98 55%,#1d70b8 100%);color:#fff;display:flex;align-items:center}
 .hc{position:relative;z-index:3;max-width:680px;margin:auto;padding:40px 22px;text-align:center}
