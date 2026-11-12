@@ -1,3 +1,184 @@
+<!-- بداية التحديث الذكي لمتجر كارفور سيتي سمارت -->
+<style>
+.ccs-slider{background:var(--card,#fff);border-bottom:1px solid var(--line,#dbe7d6);padding:16px 0;overflow:hidden}
+.ccs-slider-hd{text-align:center;font-weight:800;color:var(--g2,#14422b);margin-bottom:10px;font-size:1.05rem}
+.ccs-track{display:flex;width:max-content;animation:ccsMove 28s linear infinite}
+.ccs-track:hover{animation-play-state:paused}
+.ccs-slide{width:150px;margin:0 8px;background:var(--bg,#f4f8ef);border:1px solid var(--line,#dbe7d6);border-radius:20px;padding:8px;text-align:center;flex-shrink:0}
+.ccs-slide img{height:95px;max-width:85%;object-fit:contain}
+.ccs-slide b{display:block;font-size:.82rem;margin-top:5px;color:var(--ink,#17301f);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes ccsMove{0%{transform:translateX(0)}100%{transform:translateX(50%)}}
+
+.ccs-checkout-extra{background:var(--bg,#f4f8ef);border:1px solid var(--line,#dbe7d6);border-radius:20px;padding:12px;margin:12px 0;text-align:right}
+.ccs-bank-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.ccs-bank-item{background:var(--card,#fff);border:2px solid var(--line,#dbe7d6);border-radius:14px;padding:8px;text-align:center;cursor:pointer;transition:.2s}
+.ccs-bank-item.selected{border-color:var(--g,#2c7a49);background:rgba(44,122,73,.09)}
+.ccs-bank-item b{display:block;color:var(--g2,#14422b);font-size:.95rem}
+.ccs-bank-item span{display:block;font-family:monospace;font-weight:800;color:#c98a18;font-size:1.02rem;margin:2px 0}
+.ccs-copy-btn{background:var(--g,#2c7a49);color:#fff;border:0;border-radius:8px;padding:2px 10px;font-size:.75rem;cursor:pointer}
+
+.ccs-cap-label{display:block;border:2px dashed var(--g,#2c7a49);border-radius:16px;padding:12px;text-align:center;cursor:pointer;margin-top:10px;background:var(--card,#fff)}
+.ccs-cap-label input{display:none}
+#ccsPreviewImg{max-width:100%;max-height:140px;border-radius:10px;margin:8px auto 0;display:none}
+
+.ccs-inv-btn{width:100%;margin-top:10px;background:var(--gold,#f2b84b);color:#3a2800;border:0;border-radius:14px;padding:11px;font-weight:800;cursor:pointer}
+.ccs-invoice-card{background:#fff;color:#17301f;border:2px solid var(--g,#2c7a49);border-radius:18px;padding:14px;margin-top:12px;display:none;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ccs-inv-row{display:flex;justify-content:space-between;font-size:.88rem;margin:4px 0;border-bottom:1px dashed #eee;padding-bottom:3px}
+</style>
+
+<script>
+(function(){
+  let selectedApp = { name: "بنكيلي", num: "26141711" };
+  let receiptImageBase64 = "";
+
+  function upgradeStore() {
+    // 1. تحديث اسم المتجر ورقم الهاتف في النصوص والروابط دون المساس بالمنتجات والأسعار
+    document.title = "متجر كارفور سيتي سمارت – نواكشوط";
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.nodeValue.includes("معشبة مجتمع الناجحين")) {
+        node.nodeValue = node.nodeValue.replace(/معشبة مجتمع الناجحين/g, "متجر كارفور سيتي سمارت");
+      }
+      if (node.nodeValue.includes("48436080")) {
+        node.nodeValue = node.nodeValue.replace(/\+?222\s*48\s*43\s*60\s*80|48436080/g, "+222 26 14 17 11");
+      }
+    }
+
+    // تحديث روابط واتساب إلى الرقم الجديد 22226141711
+    document.querySelectorAll('a[href*="48436080"], a[href*="wa.me"]').forEach(a => {
+      a.href = a.href.replace(/22248436080|48436080/g, "22226141711");
+    });
+
+    // 2. إنشاء شريط الصور المتحرك من منتجات DXN الموجودة في صفحتك تلقائياً
+    const productCards = Array.from(document.querySelectorAll('.card'));
+    const heroSection = document.querySelector('.hero');
+    if (productCards.length > 0 && heroSection && !document.querySelector('.ccs-slider')) {
+      const sliderDiv = document.createElement('div');
+      sliderDiv.className = 'ccs-slider';
+      const slidesHtml = productCards.map(card => {
+        const imgEl = card.querySelector('img');
+        const titleEl = card.querySelector('h3');
+        if (!imgEl) return '';
+        return `<div class="ccs-slide"><img src="${imgEl.src}" alt=""><b>${titleEl ? titleEl.textContent : ''}</b></div>`;
+      }).join('');
+      sliderDiv.innerHTML = `
+        <div class="ccs-slider-hd">✨ منتجات متجر كارفور سيتي سمارت (صور متحركة) ✨</div>
+        <div class="ccs-track">${slidesHtml}${slidesHtml}</div>
+      `;
+      heroSection.insertAdjacentElement('afterend', sliderDiv);
+    }
+
+    // 3. إضافة الدفع البنكي وخانة الكبتير والفاتورة الجاهزة داخل "سلة الطلب"
+    const allElements = Array.from(document.querySelectorAll('dialog, .modal, [role="dialog"], div'));
+    const cartModal = allElements.find(el => el.textContent.includes('سلة الطلب') && el.textContent.includes('إرسال الطلب عبر واتساب') && el.children.length < 15);
+    
+    if (cartModal && !document.querySelector('.ccs-checkout-extra')) {
+      const waButton = Array.from(cartModal.querySelectorAll('button, a')).find(b => b.textContent.includes('إرسال الطلب عبر واتساب'));
+      const extraBox = document.createElement('div');
+      extraBox.className = 'ccs-checkout-extra';
+      extraBox.innerHTML = `
+        <b style="color:var(--g2,#14422b);font-size:.95rem">💳 اختر التطبيق البنكي وحوّل المبلغ إلى الرقم:</b>
+        <div class="ccs-bank-grid">
+          <div class="ccs-bank-item selected" data-b="بنكيلي" data-n="26141711">
+            <b>بنكيلي</b><span>26141711</span>
+            <button type="button" class="ccs-copy-btn" data-copy="26141711">نسخ الرقم</button>
+          </div>
+          <div class="ccs-bank-item" data-b="مصرفي" data-n="26141711">
+            <b>مصرفي</b><span>26141711</span>
+            <button type="button" class="ccs-copy-btn" data-copy="26141711">نسخ الرقم</button>
+          </div>
+          <div class="ccs-bank-item" data-b="السداد" data-n="26141711">
+            <b>السداد</b><span>26141711</span>
+            <button type="button" class="ccs-copy-btn" data-copy="26141711">نسخ الرقم</button>
+          </div>
+          <div class="ccs-bank-item" data-b="بيم بنك" data-n="26141711">
+            <b>بيم بنك</b><span>26141711</span>
+            <button type="button" class="ccs-copy-btn" data-copy="26141711">نسخ الرقم</button>
+          </div>
+        </div>
+
+        <label class="ccs-cap-label">
+          <b style="font-size:.9rem">📸 ضع هنا صورة التحويل (كبتير من المال المرسل)</b>
+          <input type="file" id="ccsReceiptInput" accept="image/*">
+          <img id="ccsPreviewImg" alt="معاينة الكبتير">
+        </label>
+
+        <button type="button" class="ccs-inv-btn" id="ccsGenerateInvBtn">
+          📄 إصدار الفاتورة الجاهزة وتأكيد عملية البيع
+        </button>
+
+        <div class="ccs-invoice-card" id="ccsReadyInvoice"></div>
+      `;
+
+      if (waButton && waButton.parentNode) {
+        waButton.parentNode.insertBefore(extraBox, waButton);
+        // تحديث رقم الواتساب عند الضغط على زر الإرسال
+        waButton.addEventListener('click', () => {
+          setTimeout(() => {
+            document.querySelectorAll('a[href*="48436080"]').forEach(a => {
+              a.href = a.href.replace(/48436080/g, "26141711");
+            });
+          }, 50);
+        });
+      } else {
+        cartModal.appendChild(extraBox);
+      }
+
+      extraBox.querySelectorAll('.ccs-bank-item').forEach(item => {
+        item.addEventListener('click', () => {
+          extraBox.querySelectorAll('.ccs-bank-item').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedApp = { name: item.dataset.b, num: item.dataset.n };
+        });
+      });
+
+      extraBox.querySelectorAll('.ccs-copy-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          navigator.clipboard.writeText(btn.dataset.copy);
+          btn.textContent = 'تم النسخ ✓';
+          setTimeout(() => btn.textContent = 'نسخ الرقم', 1500);
+        });
+      });
+
+      document.getElementById('ccsReceiptInput').addEventListener('change', (e) => {
+        const file = e.target.files;
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          receiptImageBase64 = ev.target.result;
+          const img = document.getElementById('ccsPreviewImg');
+          img.src = receiptImageBase64;
+          img.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById('ccsGenerateInvBtn').addEventListener('click', () => {
+        if (!receiptImageBase64) {
+          alert('يرجى وضع صورة التحويل (كبتير من المال المرسل) أولاً لإصدار الفاتورة.');
+          return;
+        }
+        const invNum = 'CCS-' + Math.floor(100000 + Math.random() * 900000);
+        const dateStr = new Date().toLocaleDateString('ar-MR');
+        const totalMatch = cartModal.textContent.match(/المجموع:[^\n]+/);
+        const totalText = totalMatch ? totalMatch : 'حسب السلة';
+        const priceType = cartModal.querySelector('.on, .active, [aria-pressed="true"]')?.textContent?.trim() || 'محدد في السلة';
+
+        const invCard = document.getElementById('ccsReadyInvoice');
+        invCard.style.display = 'block';
+        invCard.innerHTML = `
+          <div style="text-align:center;border-bottom:2px dashed #dbe7d6;padding-bottom:8px;margin-bottom:8px">
+            <b style="color:#14422b;font-size:1.05rem">🛒 متجر كارفور سيتي سمارت – نواكشوط</b><br>
+            <small>فاتورة بيع إلكترونية جاهزة</small><br>
+            <b>رقم الفاتورة: ${invNum}</b> | <small>${dateStr}</small>
+          </div>
+          <div class="ccs-inv-row"><span>فئة السعر:</span><b>${priceType}</b></div>
+          <div class="ccs-inv-row"><span>التطبيق البنكي:</span><b>${selectedApp.name} (${selectedApp.num})</b></div>
+          <div class="ccs-inv-row"><span>قيمة الطلب:</span><b>${totalText}</b></div>
+          <div style="text-align:center;margin-top:8px">
+            <small style="color:#2c7a49;font-weight:700;display:block;margin-bottom:4px">✅ صورة التحويل (الكبتير) المرفقة:</small>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" data-theme="light" style="color-scheme: light;">
 <head>
