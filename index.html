@@ -1,332 +1,152 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light" style="color-scheme: light;">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>متجر كرفور سيتي سمار</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&amp;family=Reem+Kufi:wght@600;700&amp;display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>متجر كارفور سيتي سمارت – نواكشوط</title>
+<link href="https://googleapis.com" rel="stylesheet">
 <style>
-:root{--bg:#f6f3ec;--ink:#14301f;--card:#fff;--mut:#5d6b60;--g:#1d6b3a;--g2:#0f3d22;--r:#c8302b;--gold:#c9a24a;--line:#e3ddcf}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Tahoma,sans-serif;line-height:1.7}
-button,.btn{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 24px;font-weight:700;text-decoration:none;display:inline-block}
-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(8,40,24,.92);color:#fff;border-bottom:2px solid var(--gold)}
-header b{font-family:'Reem Kufi',serif;font-size:1.25rem;flex:1}
-.cartb{background:var(--gold);color:#2a1d00;padding:9px 16px}
-.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(to left,rgba(6,36,22,.88),rgba(6,36,22,.5) 55%,rgba(6,36,22,.15))}
-.hero:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22px;background:conic-gradient(from -45deg at bottom,#0000,var(--bg) 1deg 90deg,#0000 91deg) 50%/30px 100%}
-.hero>div{position:relative;z-index:1;max-width:640px}
-.hero h1{font-family:'Reem Kufi',serif;font-size:clamp(2.8rem,11vw,5rem);line-height:1.2;margin:0 0 8px}
-.hero h1:after{content:"";display:block;width:96px;height:5px;background:var(--gold);margin-top:14px;border-radius:3px}
-.hero p{font-size:1.15rem;max-width:30ch;margin:0 0 18px}
-.red{background:var(--r);color:#fff}.wa{background:#25d366;color:#06361a}
-.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));max-width:1060px;margin:-30px 16px 0;position:relative;z-index:2;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
-@media(min-width:1092px){.strip{margin:-30px auto 0}}
-.strip div{padding:16px 18px;font-weight:700;display:flex;align-items:center;gap:10px}
-.strip div:before{content:"";width:12px;height:12px;background:var(--gold);transform:rotate(45deg);flex:none}
-section{padding:36px 16px;max-width:1100px;margin:auto}
-h2{font-family:'Reem Kufi',serif;font-size:2rem;margin:0 0 14px;display:flex;align-items:center;gap:14px}
-h2:after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 18px)}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px}
-.chip{background:var(--card);border:1px solid var(--line);color:var(--ink);white-space:nowrap;padding:9px 16px}
-.chip.on{background:var(--r);color:#fff;border-color:var(--r)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:10px;display:flex;flex-direction:column}
-.tile{height:150px;border-radius:999px 999px 16px 16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--c),#0f3d22);position:relative;overflow:hidden;}
-.tile img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;z-index:1;}
-.tile i{width:46px;height:70px;border-radius:12px 12px 8px 8px;background:#fff;position:relative;z-index:2;}
-.tile i:before{content:"";position:absolute;top:-9px;left:10px;width:26px;height:11px;background:#fff;border-radius:4px}
-.tile i:after{content:"";position:absolute;top:24px;left:8px;width:30px;height:26px;border-radius:50%;background:var(--r)}
-.card h3{font-size:.98rem;margin:12px 4px 6px;text-align:center;flex:1}
-.pr span{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:10px;font-size:.9rem}
-.pr .m{background:var(--g);color:#fff;font-weight:800}
-.pr em{font-style:normal;font-size:.78rem}
-.add{margin-top:8px;background:var(--r);color:#fff;border-radius:14px;padding:10px}
-.vg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.vg figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:10px}
-.vg video{width:100%;aspect-ratio:16/9;border-radius:14px;background:#000;display:block}
-.vg figcaption{text-align:center;font-weight:700;padding-top:6px}
-.box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px}
-footer{background:var(--g2);color:#dfeee3;text-align:center;padding:26px 16px 90px;border-top:4px solid var(--gold)}
-footer a{color:#fff}
-.fab{position:fixed;left:16px;bottom:16px;z-index:30;height:50px;padding:0 20px;border-radius:999px;background:#25d366;color:#06361a;font-weight:800;display:flex;align-items:center;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-.drawer{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.55);display:none}
-.drawer.open{display:block}
-.panel{position:absolute;top:0;bottom:0;left:0;width:min(420px,100%);background:var(--bg);padding:16px;overflow:auto}
-.row{display:flex;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:8px 0}
-.seg{display:flex;gap:6px;margin:10px 0}
-.seg button{flex:1;background:var(--card);border:1px solid var(--line);color:var(--ink);padding:9px}
-.seg .on{background:var(--g);color:#fff}
-.x{background:var(--r);color:#fff;padding:4px 12px}
+:root{--bg:#f4f7fb;--ink:#13233a;--card:#fff;--mut:#5a697e;--g:#004e98;--g2:#003366;--gold:#e63946;--line:#dce4ef;--hd:rgba(255,255,255,.9);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Tahoma,sans-serif;line-height:1.75}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 24px;font-weight:800;text-decoration:none;display:inline-block}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--hd);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:8px;flex:1;color:var(--g2);text-decoration:none;min-width:0}
+.logo b{font-family:'Reem Kufi',serif;font-size:1.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cartb{background:var(--g);color:#fff;padding:9px 16px}
+.red{background:var(--gold);color:#fff}.wa{background:#25d366;color:#06361a}
 
-/* Admin Styles */
-.admin-btn {position:fixed; bottom:80px; right:16px; z-index:30; background:var(--g); color:#fff; padding:10px; border-radius:50%; width:50px; height:50px; display:grid; place-items:center;}
-.admin-panel {background:var(--card); padding:20px; border-radius:16px; margin-top:20px;}
-.admin-panel input, .admin-panel select {width:100%; padding:10px; margin-bottom:10px; border:1px solid var(--line); border-radius:8px; font-family:inherit;}
-.admin-list {margin-top:20px; border-top:2px solid var(--line); padding-top:20px;}
-.admin-item {display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid var(--line);}
-.del-btn {background:var(--r); color:white; padding:5px 10px; border-radius:6px; font-size:0.8rem;}
+/* Hero Section */
+.hero{position:relative;overflow:hidden;min-height:calc(78svh - 62px);background:linear-gradient(135deg,#002b5c 0%,#004e98 55%,#1d70b8 100%);color:#fff;display:flex;align-items:center}
+.hc{position:relative;z-index:3;max-width:680px;margin:auto;padding:40px 22px;text-align:center}
+.tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:4px 16px;font-weight:700;margin-bottom:14px}
+.hc h1{font-family:'Reem Kufi',serif;font-size:clamp(2.2rem,8vw,3.8rem);line-height:1.2;margin:0 0 10px}
+.hc p{font-size:1.15rem;margin:0 auto 22px;max-width:38ch;opacity:.95}
+.hc .btn{margin:4px}
+
+section{padding:36px 16px;max-width:1100px;margin:auto}
+h2{font-family:'Reem Kufi',serif;font-size:1.9rem;margin:0 0 10px;color:var(--g2);display:flex;align-items:center;gap:14px}
+h2:after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 18px)}
+.lead{color:var(--mut);margin:0 0 18px;max-width:60ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:10px;display:flex;flex-direction:column;box-shadow:0 10px 24px rgba(0,51,102,.07)}
+.tile{height:165px;border-radius:18px;display:grid;place-items:center;background:#eef3fa;overflow:hidden}
+.tile img{height:100%;width:100%;object-fit:cover}
+.card h3{font-size:.98rem;margin:12px 4px 6px;text-align:center;flex:1}
+.pr{margin:0 2px 8px}.pr span{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:12px;font-size:.9rem}
+.pr .m{background:var(--g);color:#fff;font-weight:800}
+.card .add{margin:0;border-radius:14px;background:var(--gold);color:#fff;padding:10px;width:100%}
+
+.about{display:grid;gap:18px}@media(min-width:760px){.about{grid-template-columns:1fr 1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px}
+footer{text-align:center;padding:24px 16px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
+
+/* شريط الصور المتحرك للمنتجات */
+.marquee-box{background:var(--card);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden}
+.marquee-title{text-align:center;font-weight:800;color:var(--g2);margin-bottom:12px;font-size:1.05rem}
+.marquee-track{display:flex;width:max-content;animation:slideProducts 24s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.m-item{width:160px;margin:0 8px;background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:10px;text-align:center;cursor:pointer;flex-shrink:0;transition:transform .2s}
+.m-item:hover{transform:translateY(-3px)}
+.m-item img{width:100%;height:105px;object-fit:cover;border-radius:12px}
+.m-item h4{margin:6px 0 2px;font-size:.9rem;color:var(--g2)}
+.m-item span{font-size:.82rem;font-weight:800;color:var(--gold)}
+@keyframes slideProducts{0%{transform:translateX(0)}100%{transform:translateX(50%)}}
+
+/* نافذة السلة، التطبيقات البنكية، خانة الكبتير، والفاتورة الجاهزة */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,20,38,.72);z-index:100;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(5px)}
+.modal-bg.open{display:flex}
+.modal{background:var(--card);color:var(--ink);width:100%;max-width:490px;max-height:92vh;overflow-y:auto;border-radius:26px;padding:20px;border:1px solid var(--line);position:relative;box-shadow:0 20px 45px rgba(0,0,0,.3)}
+.close-x{position:absolute;top:14px;left:14px;background:var(--bg);color:var(--ink);width:34px;height:34px;padding:0;border-radius:50%;display:grid;place-items:center}
+.c-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);gap:8px}
+.qty-btn{padding:2px 10px;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.banks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.bank-card{border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center;cursor:pointer;transition:.2s}
+.bank-card.active{border-color:var(--g);background:rgba(0,78,152,.08)}
+.bank-card b{display:block;color:var(--g2);font-size:.98rem}
+.bank-num{display:block;font-family:monospace;font-size:1.08rem;font-weight:800;color:var(--gold);margin:3px 0}
+.copy-btn{padding:3px 10px;font-size:.78rem;background:var(--g);color:#fff;border-radius:10px}
+.inp-group{margin-bottom:10px}
+.inp-group label{display:block;font-weight:700;font-size:.9rem;margin-bottom:4px}
+.inp-group input{width:100%;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.capture-box{border:2px dashed var(--g);border-radius:16px;padding:14px;text-align:center;cursor:pointer;background:rgba(0,78,152,.04);display:block}
+.capture-box input{display:none}
+#capPreview{max-width:100%;max-height:150px;border-radius:12px;margin:8px auto 0;display:none}
+.invoice-box{background:var(--bg);border:2px solid var(--g);border-radius:20px;padding:16px;margin-top:8px}
+.inv-line{display:flex;justify-content:space-between;font-size:.92rem;margin:5px 0}
+.inv-sum{border-top:2px solid var(--g);padding-top:8px;margin-top:8px;font-weight:800;font-size:1.1rem;display:flex;justify-content:space-between;color:var(--g2)}
 </style>
 </head>
 <body>
-<header><b>متجر كرفور سيتي سمار</b><button class="cartb" id="cartb">السلة (<span id="cn">0</span>)</button></header>
 
-<div class="hero"><div>
-<h1>متجر كرفور سيتي سمار</h1>
-<p>منتجات DXN الأصلية للصحة والعناية – نواكشوط، موريتانيا. اطلب بسهولة عبر واتساب.</p>
-<a class="btn red" href="#shop">تسوّق الآن</a>
-<a class="btn wa" id="wa1" target="_blank" rel="noopener">راسلنا على واتساب</a>
-</div></div>
+<header>
+  <a href="#" class="logo">
+    <span>🛒</span>
+    <b>متجر كارفور سيتي سمارت</b>
+  </a>
+  <button class="cartb" onclick="openCart()">🛍️ السلة (<span id="cCount">0</span>)</button>
+</header>
 
-<div class="strip"><div>منتجات DXN الأصلية</div><div>سعر العضو وسعر الزبون</div><div>الطلب مباشرة عبر واتساب</div></div>
-
-<section id="shop"><h2>المنتجات</h2><div class="chips" id="chips"></div><div class="grid" id="grid"></div></section>
-
-<section id="videos"><h2>فيديوهات</h2><div class="vg">
-<figure><video controls playsinline preload="metadata" src="videos/v1.mp4"></video><figcaption>فيديو 1</figcaption></figure>
-<figure><video controls playsinline preload="metadata" src="videos/v2.mp4"></video><figcaption>فيديو 2</figcaption></figure>
-<figure><video controls playsinline preload="metadata" src="videos/v3.mp4"></video><figcaption>فيديو 3</figcaption></figure>
-<figure><video controls playsinline preload="metadata" src="videos/v4.mp4"></video><figcaption>فيديو 4</figcaption></figure>
-</div></section>
-
-<section id="about"><div class="box"><h2>عن المتجر</h2>
-<p>نوفّر منتجات DXN من فطر الريشي والأسبيرولينا والقهوة الصحية والعناية بالبشرة والمنزل، بسعر العضو وسعر الزبون، مع التوصيل والاستشارة في نواكشوط.</p>
-</div></section>
-
-<footer>متجر كرفور سيتي سمار – نواكشوط، موريتانيا<br>
-<a id="wa2" target="_blank" rel="noopener"></a><br></footer>
-
-<a class="fab" id="fab" target="_blank" rel="noopener">اطلب عبر واتساب</a>
-
-<div class="drawer" id="cartd"><div class="panel">
-<div class="row"><b>سلة الطلب</b><button class="x" id="closec">إغلاق</button></div>
-<div class="seg"><button data-t="dp">سعر العضو</button><button data-t="rp">سعر الزبون</button></div>
-<div id="items"></div>
-<p><b>المجموع: <span id="tot">0</span> أوقية</b></p>
-<button class="btn wa" id="send" style="width:100%">إرسال الطلب عبر واتساب</button>
-</div></div>
-
-<!-- Admin Drawer -->
-<button class="admin-btn" id="openAdmin">⚙️</button>
-<div class="drawer" id="admind"><div class="panel" style="width:min(480px,100%)">
-<div class="row"><b>لوحة التحكم</b><button class="x" id="closeAdmin">إغلاق</button></div>
-
-<div id="loginArea">
-    <p style="margin-bottom: 15px;">تسجيل الدخول لإضافة المنتجات</p>
-    <input type="email" id="adminEmail" placeholder="البريد الإلكتروني (admin@dxn.com)" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--line); border-radius: 8px;">
-    <input type="password" id="adminPass" placeholder="كلمة المرور (123456)" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid var(--line); border-radius: 8px;">
-    <button class="btn red" id="loginBtn" style="width:100%">دخول</button>
+<div class="hero">
+  <div class="hc">
+    <div class="tag">نواكشوط • تسوق ذكي وتوصيل سريع</div>
+    <h1>متجر كارفور سيتي سمارت</h1>
+    <p>كل ما تحتاجه من مواد غذائية، مستلزمات يومية، وعروض مميزة بين يديك مع الدفع الفوري عبر التطبيقات البنكية.</p>
+    <a href="#products" class="btn red">تسوق الآن</a>
+    <button class="btn" style="background:rgba(255,255,255,.22);color:#fff" onclick="openCart()">سلة المشتريات</button>
+  </div>
 </div>
 
-<div id="dashboardArea" style="display:none">
-    <div class="admin-panel">
-        <h3 style="margin-bottom: 10px;">إضافة منتج جديد</h3>
-        <p style="font-size:0.8rem; color:var(--mut); margin-bottom:10px;">اختر صورة للمنتج من هاتفك ليتم حفظها (سيتم ضغطها تلقائياً)</p>
-        <input type="file" id="pImgFile" accept="image/*" style="margin-bottom: 10px;">
-        <div id="imgPreview" style="height:120px; background:#eee; margin-bottom:15px; border-radius:8px; display:grid; place-items:center; overflow:hidden;">لا توجد صورة</div>
-        <input type="text" id="pCat" list="catList" placeholder="القسم (مثال: مكملات)">
-        <datalist id="catList"></datalist>
-        <input type="text" id="pName" placeholder="اسم المنتج">
-        <input type="number" id="pRP" placeholder="سعر الزبون (أوقية)">
-        <input type="number" id="pDP" placeholder="سعر العضو (أوقية)">
-        <button class="btn red" id="addProd" style="width:100%">حفظ وإضافة المنتج</button>
-    </div>
-    
-    <div class="admin-list" id="adminProdList">
-        <!-- List of added products will appear here -->
-    </div>
+<div class="marquee-box">
+  <div class="marquee-title">✨ عروض ومنتجات كارفور سيتي سمارت المتحركة (اضغط للإضافة) ✨</div>
+  <div class="marquee-track" id="marqueeTrack"></div>
 </div>
 
-</div></div>
+<section id="products">
+  <h2>منتجات المتجر</h2>
+  <p class="lead">أضف مشترياتك إلى السلة لإصدار الفاتورة الجاهزة وإرسال صورة التحويل البنكي.</p>
+  <div class="grid" id="prodGrid"></div>
+</section>
 
-<script>
+<section>
+  <h2>التوصيل والدفع البنكي</h2>
+  <div class="about">
+    <div class="box">
+      <h3 style="margin-top:0;color:var(--g2)">📍 كارفور سيتي سمارت – نواكشوط</h3>
+      <p>خدمة توصيل سريعة وموثوقة لجميع أحياء ومقاطعات نواكشوط. اطلب عبر الموقع وسنصلك أينما كنت.</p>
+      <p style="margin:6px 0"><b>واتساب خدمة الزبناء:</b> <span dir="ltr">+222 26 14 17 11</span></p>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0;color:var(--g2)">💳 أرقام الدفع عبر التطبيقات البنكية</h3>
+      <p style="margin:6px 0"><b>بنكيلي (Bankily):</b> 26141711</p>
+      <p style="margin:6px 0"><b>مصرفي (Masrvi):</b> 26141711</p>
+      <p style="margin:6px 0"><b>السداد (Sedad):</b> 26141711</p>
+      <p style="margin:6px 0"><b>بيم بنك (Bimbank):</b> 26141711</p>
+    </div>
+  </div>
+</section>
 
-var WA='22226141711';
-var ADMIN_CREDENTIALS = {email: 'admin@dxn.com', pass: '123456'};
+<footer>
+  جميع الحقوق محفوظة © متجر كارفور سيتي سمارت – نواكشوط • واتساب: <span dir="ltr">+222 26 14 17 11</span>
+</footer>
 
-/* المنتج: المعرف|القسم|الاسم|سعر الزبون|سعر العضو|رابط الصورة */
-var BASE_PRODUCTS = [
-  ['b1','مكملات','ريشي جانو RG – 30 كبسولة',720,570,'https://dxn-mena.com/img/products/p_3.png'],
-  ['b2','مكملات','ريشي جانو RG – 90 كبسولة',2050,1600,'https://dxn-mena.com/img/products/p_3.png'],
-  ['b3','مكملات','ريشي جانو RG – 360 كبسولة',6940,5420,'https://dxn-mena.com/img/products/p_3.png'],
-  ['b4','مكملات','جانوسيليوم GL – 30 كبسولة',720,570,'https://dxn-mena.com/img/products/p_2.png'],
-  ['b5','مكملات','جانوسيليوم GL – 90 كبسولة',2050,1600,'https://dxn-mena.com/img/products/p_2.png'],
-  ['b6','مكملات','أسبيرولينا – 120 حبة',1050,820,'https://dxn-mena.com/img/products/p_1.png'],
-  ['b7','مكملات','أسبيرولينا – 500 حبة',3940,3080,'https://dxn-mena.com/img/products/p_1.png'],
-  ['b8','مكملات','كورديسبس – 120 حبة',3920,3060,'https://dxn-mena.com/img/products/p_6.png'],
-  ['b9','مكملات','عرف الأسد – 120 حبة',1570,1230,'https://dxn-mena.com/img/products/p_5.png'],
-  ['b10','مشروبات وقهوة','عصير المورنزي',880,680,'https://dxn-mena.com/img/products/p_9.png'],
-  ['b11','مشروبات وقهوة','قهوة لينجزي 3 في 1',840,660,'https://dxn-mena.com/img/products/p_14.png'],
-  ['b12','مشروبات وقهوة','قهوة لينجزي السوداء',830,650,'https://dxn-mena.com/img/products/p_16.png'],
-  ['b13','مشروبات وقهوة','كوكوزي',1150,900,'https://dxn-mena.com/img/products/p_18.png'],
-  ['b14','أطعمة','سبيرولينا سيريال',2090,1630,'https://dxn-mena.com/img/products/p_23.png'],
-  ['b15','عناية شخصية','معجون أسنان جانوزي 150غ',450,350,'https://dxn-mena.com/img/products/p_27.png'],
-  ['b16','عناية شخصية','صابون جانوزي',200,160,'https://dxn-mena.com/img/products/p_26.png']
-];
+<div class="modal-bg" id="cartModal">
+  <div class="modal">
+    <button class="close-x" onclick="closeCart()">✕</button>
+    <h3 style="margin:0 0 10px;color:var(--g2)">🛒 سلة المشتريات وإتمام الطلب</h3>
 
-var COL={'مكملات':'#8a2b22','مشروبات وقهوة':'#6b4423','أطعمة':'#a8741a','عناية شخصية':'#2f6f8f','عناية بالبشرة':'#2a8a5a','منزلية':'#5a5f8f'};
-var cart={}, ptype='dp', cat='الكل', P=[];
-var currentImgBase64 = '';
+    <div id="cartList"></div>
+    <div id="cartTotal" style="font-weight:800;font-size:1.1rem;margin:10px 0;color:var(--g2)"></div>
 
-var $=function(i){return document.getElementById(i)}, fm=function(n){return Number(n).toLocaleString('ar-EG')};
-
-// LocalStorage Helper
-var ls = {
-  get: function(k, f){ try{var v=localStorage.getItem(k); return v?JSON.parse(v):f;}catch(e){return f;} },
-  set: function(k, v){ try{localStorage.setItem(k, JSON.stringify(v));}catch(e){alert("مساحة التخزين ممتلئة (الصور كبيرة جداً)، حاول تقليل جودة الصورة.");} }
-};
-
-function loadProducts() {
-    var manual = ls.get('custom_products_v2', []);
-    P = BASE_PRODUCTS.concat(manual);
-}
-
-function cats(){var s=['الكل'];P.forEach(function(p){if(s.indexOf(p[1])<0)s.push(p[1])});return s}
-
-function drawImg(imgUrl) {
-    if(imgUrl && imgUrl !== '') {
-        // يعرض الصورة، وإذا فشل التحميل يعرض أيقونة فارغة مؤقتاً
-        return '<img src="'+imgUrl+'" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';"><i style="display:none"></i>';
-    }
-    return '<i></i>';
-}
-
-function render(){
- $('chips').innerHTML=cats().map(function(c){return '<button class="chip'+(c==cat?' on':'')+'" data-c="'+c+'">'+c+'</button>'}).join('');
- $('catList').innerHTML=cats().filter(function(c){return c!=='الكل'}).map(function(c){return '<option value="'+c+'">'}).join('');
- 
- $('grid').innerHTML=P.map(function(p,i){
-     return(cat=='الكل'||p[1]==cat)?'<div class="card"><div class="tile" style="--c:'+(COL[p[1]]||'#1d6b3a')+'">'+drawImg(p[5])+'</div><h3>'+p[2]+'</h3><div class="pr"><span class="m"><em>سعر العضو</em>'+fm(p[4])+' أوقية</span><span><em>سعر الزبون</em>'+fm(p[3])+' أوقية</span></div><button class="add" data-a="'+p[0]+'">أضف إلى السلة</button></div>':''
- }).join('');
- 
- ['wa1','wa2','fab'].forEach(function(i){$(i).href='https://wa.me/'+WA});
- $('wa2').textContent='واتساب: +'+WA;
- cartRender();
-}
-
-function getProductById(id) {
-    return P.find(function(p){ return p[0] === id; });
-}
-
-function cartRender(){
- var ks=Object.keys(cart),t=0,n=0;
- $('items').innerHTML=ks.length?ks.map(function(k){
-     var p=getProductById(k);
-     if(!p) return '';
-     var q=cart[k],pr=p[ptype=='dp'?4:3];
-     t+=pr*q;n+=q;
-     return '<div class="row"><span>'+p[2]+'<br>'+fm(pr)+' × '+q+'</span><span><button class="x" data-q="'+k+'|1">+</button> <button class="x" data-q="'+k+'|-1">−</button></span></div>'
- }).join(''):'<p>السلة فارغة.</p>';
- $('tot').textContent=fm(t);$('cn').textContent=n;
- document.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',b.dataset.t==ptype)});
-}
-
-function adminRender() {
-    var manual = ls.get('custom_products_v2', []);
-    $('adminProdList').innerHTML = manual.length ? manual.map(function(p){
-        return '<div class="admin-item"><div style="display:flex; gap:10px; align-items:center;">'+
-               (p[5] ? '<img src="'+p[5]+'" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">' : '') +
-               '<div><b>'+p[2]+'</b><br>عضو: '+p[4]+' | زبون: '+p[3]+'</div></div>'+
-               '<button class="del-btn" data-del="'+p[0]+'">حذف</button></div>';
-    }).join('') : '<p style="color:var(--mut);text-align:center;">لا توجد منتجات مضافة يدوياً</p>';
-}
-
-// ضغط الصورة وحفظها (Image Upload & Compression)
-$('pImgFile').addEventListener('change', function(e) {
-    var file = e.target.files[0];
-    if(!file) return;
-    
-    var reader = new FileReader();
-    reader.onload = function(event) {
-        var img = new Image();
-        img.onload = function() {
-            var canvas = document.createElement('canvas');
-            var ctx = canvas.getContext('2d');
-            // ضغط الصورة إلى عرض أقصى 350 بكسل لتوفير المساحة في المتصفح
-            var MAX_WIDTH = 350;
-            var scaleSize = MAX_WIDTH / img.width;
-            canvas.width = MAX_WIDTH;
-            canvas.height = img.height * scaleSize;
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            currentImgBase64 = canvas.toDataURL('image/jpeg', 0.6); // جودة 60% لتقليل الحجم
-            $('imgPreview').innerHTML = '<img src="'+currentImgBase64+'" style="width:100%;height:100%;object-fit:cover;">';
-        }
-        img.src = event.target.result;
-    }
-    reader.readAsDataURL(file);
-});
-
-document.addEventListener('click',function(e){
- var t=e.target,d=t.dataset||{};
- if(d.c){cat=d.c;render()}
- if(d.a){cart[d.a]=(cart[d.a]||0)+1;cartRender()}
- if(d.q){var a=d.q.split('|');cart[a[0]]=(cart[a[0]]||0)+Number(a[1]);if(cart[a[0]]<=0)delete cart[a[0]];cartRender()}
- if(d.t){ptype=d.t;cartRender()}
- 
- if(t.id=='cartb')$('cartd').classList.add('open');
- if(t.id=='closec')$('cartd').classList.remove('open');
- 
- if(t.id=='send'){
-     var ks=Object.keys(cart);if(!ks.length)return;
-     var tot=0,l=ks.map(function(k){
-         var p=getProductById(k);
-         if(!p) return '';
-         var pr=p[ptype=='dp'?4:3];tot+=pr*cart[k];
-         return '- '+p[2]+' × '+cart[k]+' = '+pr*cart[k]+' أوقية'
-     });
-  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('السلام عليكم، أريد طلب ('+(ptype=='dp'?'سعر العضو':'سعر الزبون')+'):\n'+l.join('\n')+'\nالمجموع: '+tot+' أوقية'),'_blank')
- }
- 
- // Admin Controls
- if(t.id=='openAdmin')$('admind').classList.add('open');
- if(t.id=='closeAdmin')$('admind').classList.remove('open');
- 
- if(t.id=='loginBtn'){
-     if($('adminEmail').value === ADMIN_CREDENTIALS.email && $('adminPass').value === ADMIN_CREDENTIALS.pass){
-         $('loginArea').style.display = 'none';
-         $('dashboardArea').style.display = 'block';
-         adminRender();
-     } else {
-         alert('البيانات غير صحيحة');
-     }
- }
- 
- if(t.id=='addProd'){
-     var c = $('pCat').value || 'عام';
-     var n = $('pName').value;
-     var rp = Number($('pRP').value);
-     var dp = Number($('pDP').value);
-     
-     if(!n || !rp || !dp) { alert('الرجاء إدخال الاسم والأسعار'); return; }
-     
-     var manual = ls.get('custom_products_v2', []);
-     var newId = 'm_' + Date.now();
-     manual.push([newId, c, n, rp, dp, currentImgBase64]);
-     
-     ls.set('custom_products_v2', manual);
-     loadProducts();
-     render();
-     adminRender();
-     
-     $('pName').value = ''; $('pRP').value = ''; $('pDP').value = ''; $('pImgFile').value = '';
-     currentImgBase64 = ''; $('imgPreview').innerHTML = 'لا توجد صورة';
-     alert('تمت الإضافة بنجاح');
- }
- 
- if(d.del){
-     var manual = ls.get('custom_products_v2', []);
-     manual = manual.filter(function(p){ return p[0] !== d.del; });
-     ls.set('custom_products_v2', manual);
-     loadProducts();
-     render();
-     adminRender();
- }
- 
-});
-
-loadProducts();
-render();
-</script>
-</body>
-</html>
-
+    <div id="paySection" style="display:none">
+      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
+      <h4 style="margin:0 0 6px;color:var(--g2)">1️⃣ اختر التطبيق البنكي وحوّل المبلغ إلى الرقم:</h4>
+      <div class="banks-grid">
+        <div class="bank-card active" onclick="pickBank(this,'بنكيلي','26141711')">
+          <b>بنكيلي</b>
+          <span class="bank-num">26141711</span>
+          <button type="button" class="copy-btn" onclick="copyText(event,'26141711')">نسخ الرقم</button>
+        </div>
+        <div class="bank-card" onclick="pickBank(this,'مصرفي','26141711')">
+          <b>مصرفي</b>
