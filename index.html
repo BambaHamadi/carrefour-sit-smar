@@ -6,88 +6,83 @@
 <title>متجر كارفور سيتي سمارت – نواكشوط</title>
 <link href="https://googleapis.com" rel="stylesheet">
 <style>
-:root{
-  --bg:#f4f7fb; --ink:#13233a; --card:#fff; --mut:#5a697e;
-  --g:#004e98; --g2:#003366; --gold:#e63946; --line:#dce4ef;
-  --hd:rgba(255,255,255,.92);
-  box-sizing:border-box; padding-bottom:env(safe-area-inset-bottom,0px);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
+:root{--bg:#f4f8ef;--ink:#17301f;--card:#fff;--mut:#5a6e60;--g:#2c7a49;--g2:#14422b;--gold:#f2b84b;--line:#dbe7d6;--hd:rgba(255,255,255,.86);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a12;--ink:#eaf3e6;--card:#16271c;--mut:#a3b3a6;--line:#264131;--hd:rgba(14,26,18,.88)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Tahoma,sans-serif;line-height:1.75}
-button,.btn{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 24px;font-weight:800;text-decoration:none;display:inline-block;transition:transform .15s}
-button:active,.btn:active{transform:scale(.97)}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 24px;font-weight:800;text-decoration:none;display:inline-block}
 button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-
-/* الشريط العلوي */
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--hd);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--hd);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .logo{display:flex;align-items:center;gap:8px;flex:1;color:var(--g2);text-decoration:none;min-width:0}
-.logo b{font-family:'Reem Kufi',serif;font-size:1.18rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cartb{background:var(--g);color:#fff;padding:9px 18px}
-.red{background:var(--gold);color:#fff}
-.wa{background:#25d366;color:#06361a}
-
-/* الواجهة الرئيسية Hero */
-.hero{position:relative;overflow:hidden;min-height:calc(76svh - 62px);background:linear-gradient(135deg,#002b5c 0%,#004e98 55%,#1d70b8 100%);color:#fff;display:flex;align-items:center}
-.sun{position:absolute;top:-15%;left:-15%;width:70vmax;height:70vmax;background:radial-gradient(circle,rgba(255,255,255,.15),rgba(255,255,255,0) 65%)}
-.hc{position:relative;z-index:3;max-width:680px;margin:auto;padding:42px 22px;text-align:center}
-.tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:4px 16px;font-weight:700;margin-bottom:14px}
-.hc h1{font-family:'Reem Kufi',serif;font-size:clamp(2.2rem,8vw,3.9rem);line-height:1.2;margin:0 0 10px}
-.hc p{font-size:1.15rem;margin:0 auto 22px;max-width:38ch;opacity:.95}
-.hc .btn{margin:4px}
-
-/* شريط الصور المتحرك للمنتجات */
-.ccs-slider{background:var(--card);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden}
-.ccs-slider-hd{text-align:center;font-weight:800;color:var(--g2);margin-bottom:12px;font-size:1.05rem}
-.ccs-track{display:flex;width:max-content;animation:ccsMove 26s linear infinite}
-.ccs-track:hover{animation-play-state:paused}
-.ccs-slide{width:165px;margin:0 8px;background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:10px;text-align:center;cursor:pointer;flex-shrink:0;transition:transform .2s}
-.ccs-slide:hover{transform:translateY(-3px)}
-.ccs-slide img{width:100%;height:105px;object-fit:cover;border-radius:12px}
-.ccs-slide b{display:block;font-size:.88rem;margin-top:6px;color:var(--g2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ccs-slide span{font-size:.82rem;font-weight:800;color:var(--gold)}
-@keyframes ccsMove{0%{transform:translateX(0)}100%{transform:translateX(50%)}}
-
-/* الأقسام وشبكة المنتجات */
+.logo b{font-family:'Reem Kufi',serif;font-size:1.12rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(prefers-color-scheme:dark){.logo{color:#bfe3c6}}
+.cartb{background:var(--g);color:#fff;padding:9px 16px}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--mut);padding:6px 12px;font-size:.85rem}
+.red{background:var(--g);color:#fff}.wa{background:#25d366;color:#06361a}
+.hero{position:relative;overflow:hidden;min-height:calc(85svh - 62px);background:linear-gradient(180deg,#26524d 0%,#4f8c7a 38%,#9fcfb4 62%,#d5ebc9 100%);color:#fff;display:flex;align-items:center}
+.sun{position:absolute;top:-12%;left:-15%;width:75vmax;height:75vmax;background:radial-gradient(circle,rgba(255,238,180,.6),rgba(255,238,180,0) 62%)}
+.cloud{position:absolute;top:5%;left:-10%;width:70%;height:110px;border-radius:50%;background:rgba(255,255,255,.2);filter:blur(24px);animation:drift 38s ease-in-out infinite alternate}
+.cloud.c2{top:16%;left:35%;width:60%;animation-duration:50s}
+@keyframes drift{to{transform:translateX(18%)}}
+.hills{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:35%;z-index:1}
+.pt{position:absolute;top:-20px;left:var(--x);width:12px;height:16px;background:#ffc3d6;border-radius:85% 0 85% 0;z-index:2;opacity:.9;animation:fall var(--d) linear var(--s) infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(40px,55vh) rotate(180deg)}100%{transform:translate(-20px,105vh) rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.pt,.cloud{animation:none}}
+.hc{position:relative;z-index:3;max-width:680px;margin:auto;padding:40px 22px;text-align:center;text-shadow:0 2px 14px rgba(8,40,30,.45)}
+.tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:4px 16px;font-weight:700;margin-bottom:14px;backdrop-filter:blur(6px)}
+.hc h1{font-family:'Reem Kufi',serif;font-size:clamp(2.4rem,9vw,4.2rem);line-height:1.2;margin:0 0 10px}
+.hc p{font-size:1.15rem;margin:0 auto 22px;max-width:34ch}
+.hc .btn{margin:4px;text-shadow:none}.hc .red{background:var(--gold);color:#3a2800}
 section{padding:36px 16px;max-width:1100px;margin:auto}
-h2{font-family:'Reem Kufi',serif;font-size:1.9rem;margin:0 0 10px;color:var(--g2);display:flex;align-items:center;gap:14px}
+h2{font-family:'Reem Kufi',serif;font-size:2rem;margin:0 0 10px;color:var(--g2);display:flex;align-items:center;gap:14px}
+@media(prefers-color-scheme:dark){h2{color:#bfe3c6}}
 h2:after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 18px)}
 .lead{color:var(--mut);margin:0 0 18px;max-width:60ch}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:10px;display:flex;flex-direction:column;box-shadow:0 10px 24px rgba(0,51,102,.07)}
-.tile{height:165px;border-radius:18px;display:grid;place-items:center;background:#eef3fa;overflow:hidden}
-.tile img{height:100%;width:100%;object-fit:cover}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:10px;display:flex;flex-direction:column;box-shadow:0 10px 24px rgba(20,66,43,.09)}
+.tile{height:170px;border-radius:120px 120px 18px 18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--c,#2c7a49),#14422b);overflow:hidden}
+.tile.ph{background:radial-gradient(ellipse at 50% 30%,#fff 0,#e3f1df 80%)}
+.tile img{max-height:140px;max-width:85%;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(0,0,0,.22))}
 .card h3{font-size:.98rem;margin:12px 4px 6px;text-align:center;flex:1}
-.pr{margin:0 2px 8px}
-.pr span{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:12px;font-size:.9rem}
+.pr{margin:0 2px 8px}.pr span{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:12px;font-size:.9rem}
 .pr .m{background:var(--g);color:#fff;font-weight:800}
-.card .add{margin:0;border-radius:14px;background:var(--gold);color:#fff;padding:10px;width:100%}
-
-.about{display:grid;gap:18px}
-@media(min-width:760px){.about{grid-template-columns:1fr 1fr}}
-.box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px}
+.card .add{margin:0;border-radius:16px;background:var(--gold);color:#3a2800;padding:10px;width:100%}
+.about{display:grid;gap:18px}@media(min-width:760px){.about{grid-template-columns:1fr 1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:20px}
 footer{text-align:center;padding:24px 16px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
 
-/* نوافذ السلة، الدفع البنكي، الكبتير، والفاتورة الجاهزة */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,20,38,.72);z-index:100;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(5px)}
+/* شريط الصور المتحرك للمنتجات */
+.marquee-box{background:var(--card);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden}
+.marquee-title{text-align:center;font-weight:800;color:var(--g2);margin-bottom:12px;font-size:1.05rem}
+.marquee-track{display:flex;width:max-content;animation:slideProducts 24s linear infinite}
+.marquee-track:hover{animation-play-state:paused}
+.m-item{width:160px;margin:0 8px;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:10px;text-align:center;cursor:pointer;flex-shrink:0;transition:transform .2s}
+.m-item:hover{transform:translateY(-3px)}
+.m-item img{width:100%;height:110px;object-fit:contain;border-radius:14px}
+.m-item h4{margin:6px 0 2px;font-size:.9rem;color:var(--g2)}
+.m-item span{font-size:.82rem;font-weight:800;color:var(--g)}
+@keyframes slideProducts{0%{transform:translateX(0)}100%{transform:translateX(50%)}}
+
+/* نافذة السلة، التطبيقات البنكية، خانة الكبتير، والفاتورة الجاهزة */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(14,26,18,.72);z-index:100;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(5px)}
 .modal-bg.open{display:flex}
-.modal{background:var(--card);color:var(--ink);width:100%;max-width:490px;max-height:92vh;overflow-y:auto;border-radius:26px;padding:20px;border:1px solid var(--line);position:relative;box-shadow:0 20px 45px rgba(0,0,0,.3)}
+.modal{background:var(--card);color:var(--ink);width:100%;max-width:490px;max-height:92vh;overflow-y:auto;border-radius:28px;padding:20px;border:1px solid var(--line);position:relative;box-shadow:0 20px 45px rgba(0,0,0,.3)}
 .close-x{position:absolute;top:14px;left:14px;background:var(--bg);color:var(--ink);width:34px;height:34px;padding:0;border-radius:50%;display:grid;place-items:center}
 .c-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);gap:8px}
 .qty-btn{padding:2px 10px;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
 .banks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-.bank-card{border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center;cursor:pointer;transition:.2s}
-.bank-card.active{border-color:var(--g);background:rgba(0,78,152,.08)}
+.bank-card{border:2px solid var(--line);border-radius:18px;padding:10px;text-align:center;cursor:pointer;transition:.2s}
+.bank-card.active{border-color:var(--g);background:rgba(44,122,73,.1)}
 .bank-card b{display:block;color:var(--g2);font-size:.98rem}
-.bank-num{display:block;font-family:monospace;font-size:1.08rem;font-weight:800;color:var(--gold);margin:3px 0}
+.bank-num{display:block;font-family:monospace;font-size:1.08rem;font-weight:800;color:#c98a18;margin:3px 0}
 .copy-btn{padding:3px 10px;font-size:.78rem;background:var(--g);color:#fff;border-radius:10px}
 .inp-group{margin-bottom:10px}
 .inp-group label{display:block;font-weight:700;font-size:.9rem;margin-bottom:4px}
 .inp-group input{width:100%;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
-.capture-box{border:2px dashed var(--g);border-radius:16px;padding:14px;text-align:center;cursor:pointer;background:rgba(0,78,152,.04);display:block}
+.capture-box{border:2px dashed var(--g);border-radius:18px;padding:14px;text-align:center;cursor:pointer;background:rgba(44,122,73,.05);display:block}
 .capture-box input{display:none}
 #capPreview{max-width:100%;max-height:150px;border-radius:12px;margin:8px auto 0;display:none}
-.invoice-box{background:var(--bg);border:2px solid var(--g);border-radius:20px;padding:16px;margin-top:8px}
+.invoice-box{background:var(--bg);border:2px solid var(--g);border-radius:22px;padding:16px;margin-top:8px}
 .inv-line{display:flex;justify-content:space-between;font-size:.92rem;margin:5px 0}
 .inv-sum{border-top:2px solid var(--g);padding-top:8px;margin-top:8px;font-weight:800;font-size:1.1rem;display:flex;justify-content:space-between;color:var(--g2)}
 </style>
@@ -104,57 +99,26 @@ footer{text-align:center;padding:24px 16px;border-top:1px solid var(--line);colo
 
 <div class="hero">
   <div class="sun"></div>
+  <div class="cloud"></div>
+  <div class="cloud c2"></div>
+  <span class="pt" style="--x:15%;--d:11s;--s:0s"></span>
+  <span class="pt" style="--x:50%;--d:14s;--s:2s"></span>
+  <span class="pt" style="--x:80%;--d:12s;--s:4s"></span>
+
   <div class="hc">
     <div class="tag">نواكشوط • تسوق ذكي وتوصيل سريع</div>
     <h1>متجر كارفور سيتي سمارت</h1>
-    <p>كل ما تحتاجه من منتجات ومستلزمات يومية وعروض مميزة بين يديك مع الدفع الفوري عبر التطبيقات البنكية.</p>
-    <a href="#products" class="btn red">تسوق الآن</a>
+    <p>منتجات ومستلزمات يومية مختارة بعناية مع الدفع المباشر عبر التطبيقات البنكية.</p>
+    <a href="#products" class="btn red">تصفح المنتجات</a>
     <button class="btn" style="background:rgba(255,255,255,.22);color:#fff" onclick="openCart()">سلة المشتريات</button>
   </div>
+
+  <svg class="hills" viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path fill="#f4f8ef" d="M0,224L80,213.3C160,203,320,181,480,186.7C640,192,800,224,960,229.3C1120,235,1280,213,1360,202.7L1440,192L1440,320L0,320Z"></path>
+  </svg>
 </div>
 
 <!-- شريط الصور المتحرك للمنتجات -->
-<div id="autoSliderMount"></div>
-
-<section id="products">
-  <h2>منتجات المتجر</h2>
-  <p class="lead">أضف مشترياتك إلى السلة لإصدار الفاتورة الجاهزة وإرسال صورة التحويل البنكي.</p>
-  <div class="grid" id="prodGrid"></div>
-</section>
-
-<section>
-  <h2>التوصيل والدفع البنكي</h2>
-  <div class="about">
-    <div class="box">
-      <h3 style="margin-top:0;color:var(--g2)">📍 كارفور سيتي سمارت – نواكشوط</h3>
-      <p>خدمة توصيل سريعة وموثوقة لجميع أحياء ومقاطعات نواكشوط. اطلب عبر الموقع وسنصلك أينما كنت.</p>
-      <p style="margin:6px 0"><b>واتساب خدمة الزبناء:</b> <span dir="ltr">+222 26 14 17 11</span></p>
-    </div>
-    <div class="box">
-      <h3 style="margin-top:0;color:var(--g2)">💳 أرقام الدفع عبر التطبيقات البنكية</h3>
-      <p style="margin:6px 0"><b>بنكيلي (Bankily):</b> 26141711</p>
-      <p style="margin:6px 0"><b>مصرفي (Masrvi):</b> 26141711</p>
-      <p style="margin:6px 0"><b>السداد (Sedad):</b> 26141711</p>
-      <p style="margin:6px 0"><b>بيم بنك (Bimbank):</b> 26141711</p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  جميع الحقوق محفوظة © متجر كارفور سيتي سمارت – نواكشوط • واتساب: <span dir="ltr">+222 26 14 17 11</span>
-</footer>
-
-<div class="modal-bg" id="cartModal">
-  <div class="modal">
-    <button class="close-x" onclick="closeCart()">✕</button>
-    <h3 style="margin:0 0 10px;color:var(--g2)">🛒 سلة المشتريات وإتمام الطلب</h3>
-
-    <div id="cartList"></div>
-    <div id="cartTotal" style="font-weight:800;font-size:1.1rem;margin:10px 0;color:var(--g2)"></div>
-
-    <div id="paySection" style="display:none">
-      <hr style="border:0;border-top:1px solid var(--line);margin:12px 0">
-      <h4 style="margin:0 0 6px;color:var(--g2)">1️⃣ اختر التطبيق البنكي وحوّل المبلغ إلى الرقم:</h4>
-      <div class="banks-grid">
-        <div class="bank-card active" onclick="pickBank(this,'بنكيلي','26141711')">
-          <b>بنكيلي</b>
+<div class="marquee-box">
+  <div class="marquee-title">✨ صور منتجات متجر كارفور سيتي سمارت المتحركة (اضغط للإضافة للسلة) ✨</div>
+  <div class="marquee-track" id="marqueeTrack"></div>
